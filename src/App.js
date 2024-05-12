@@ -1,4 +1,38 @@
-import logo from './logo.svg';
+// App.js
+
+import React from "react";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Registration from "./Registration/RequestForAccount";
+import MyLogin from "./Registration/MyLogin"; // Import your login component
+import AdminLogin from "./Registration/AdminLogin";
+import PendingRequestsPage from "./Registration/PendingRequestsPage";
+import JobPostPage from "./JobPost/JobPostArena";
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <h1>CUET CSE Alumni</h1>
+        
+        <Switch>
+          <Route exact path="/" component={Registration} />
+          <Route path="/alumni-login" component={MyLogin} />
+          <Route path="/admin-login" component={AdminLogin} />
+          <Route path="/PendingRequestsPage" component={PendingRequestsPage} />
+          <Route path="/Alumni-registration" component={Registration} />
+          <Route path="/Job-Arena" component={JobPostPage}></Route>
+          {/* Add more routes here if needed */}
+        </Switch>
+      
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+/*import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -22,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;*/
