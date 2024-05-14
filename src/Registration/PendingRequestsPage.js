@@ -76,6 +76,7 @@ function AdminLogin() {
 
       if (response.status === 200) {
         alert("Successfully logout as admin");
+        localStorage.removeItem("token")
         history.push("/admin-login");
       } else {
         console.error("Unexpected response status:", response.status);

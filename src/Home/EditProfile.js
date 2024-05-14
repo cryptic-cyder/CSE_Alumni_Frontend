@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./MyLogin.css";
+import "./ProfileEdit.css";
+import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import userEvent from "@testing-library/user-event";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -10,11 +12,9 @@ function LoginForm() {
     passwordOfUser: "",
     profilePicOfUser: null,
     identityPic: null,
-
     studentId: "",
     YearOfGraduation: "",
   });
-
 
   const [isGraduated, setIsGraduated] = useState(false);
 
@@ -28,6 +28,10 @@ function LoginForm() {
     }));
   };
 
+
+
+
+  
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
 
@@ -44,31 +48,76 @@ function LoginForm() {
     }
   };
 
+
+
+  const requestData = {
+    userName: formData.userName,
+    userEmail: formData.userEmail,
+    passwordOfUser: formData.passwordOfUser,
+    profilePicOfUser: formData.profilePicOfUser,
+    identityPic: formData.identityPic,
+    studentId: formData.studentId,
+    YearOfGraduation: formData.YearOfGraduation,
+};
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+
     try {
-      const formDataObj = new FormData();
-      for (const key in formData) {
-        formDataObj.append(key, formData[key]);
+      const token = localStorage.getItem("tokenUser");
+
+      if (!token) {
+        console.error("Token not found");
+        return;
       }
 
-      const response = await fetch("http://localhost:8181/public/requestForAccount", {
-        method: "POST",
-        body: formDataObj,
-      });
+      // const requestBody = { token };
 
-      if (response.ok) {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const data = await response.json();
-          console.log(data);
-         
-        } else {
-          const text = await response.text();
-          console.log(text); // Log plain text response
+      const formDataObj = new FormData();
+      for (const key in formData) {
+        if (formData[key] !== "") {
+          formDataObj.append(key, formData[key]);
         }
-        alert("Account is waiting for approval")
+      }
+
+
+
+
+      const response = await axios.post(
+        "http://localhost:8181/updateAcc",
+        requestData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+
+
+
+    //   const response = await fetch("http://localhost:8181/updateAcc", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //     body: JSON.stringify(requestData),
+    //   });
+
+
+
+
+
+      if (response.status === 200) {
+        alert("Your account is updated...");
+        console.log(response.data); // Log response data
       } else {
         console.error("Registration failed");
       }
@@ -96,7 +145,7 @@ function LoginForm() {
                       </div>
                     </div>
                     <h4 className="font-weight-bold text-center text-uppercase mb-2">
-                      Alumni Registration
+                      Edit Profile
                     </h4>
                     <form
                       className="row mt-2 g-3 form-prevent"
@@ -110,12 +159,11 @@ function LoginForm() {
                         value="PnHm4L2FHyuOIN2UXk55Ra0sLEKyOsPbNfFCUOXw"
                       />
 
-
                       <div className="row mt-3">
                         <div className="col-md-6">
                           <div className="form-group mb-2">
                             <label className="form-label">
-                              Full Name 
+                              Full Name
                               <span className="required-mask">*</span>
                             </label>
                             <input
@@ -125,7 +173,6 @@ function LoginForm() {
                               name="userName"
                               value={formData.userName} // Bind value to state variable
                               onChange={handleChange} // Handle change event
-                              required
                             />
                           </div>
                         </div>
@@ -133,7 +180,7 @@ function LoginForm() {
                         <div className="col-md-6">
                           <div className="form-group mb-2">
                             <label className="form-label">
-                              Email 
+                              Email
                               <span className="required-mask">*</span>
                             </label>
                             <input
@@ -143,7 +190,6 @@ function LoginForm() {
                               name="userEmail"
                               value={formData.userEmail}
                               onChange={handleChange}
-                              required
                             />
                           </div>
                         </div>
@@ -151,7 +197,7 @@ function LoginForm() {
                         <div className="col-md-6">
                           <div className="form-group mb-2">
                             <label className="form-label">
-                              Password 
+                              Password
                               <span className="required-mask">*</span>
                             </label>
                             <input
@@ -161,11 +207,9 @@ function LoginForm() {
                               name="passwordOfUser"
                               value={formData.passwordOfUser}
                               onChange={handleChange}
-                              required
                             />
                           </div>
                         </div>
-
 
                         <div className="col-md-6">
                           <div className="form-group mb-2">
@@ -194,7 +238,6 @@ function LoginForm() {
                             name="graduationStatus"
                             value={formData.graduationStatus}
                             onChange={handleGraduationStatusChange}
-                            required
                           >
                             <option value="">-- Select --</option>
                             <option value="Graduated">Graduated</option>
@@ -204,21 +247,19 @@ function LoginForm() {
                       </div>
 
                       <div className="col-md-6">
-                            <div className="form-group mb-2">
-                              <label className="form-label">
-                                Identity {" "}
-                                <span className="required-mask">*</span>
-                              </label>
-                              <input
-                                type="file"
-                                className="form-control"
-                                name="identityPic"
-                                onChange={handleChange}
-                                accept="image/*"
-                                required
-                              />
-                            </div>
-                          </div>
+                        <div className="form-group mb-2">
+                          <label className="form-label">
+                            Identity <span className="required-mask">*</span>
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            name="identityPic"
+                            onChange={handleChange}
+                            accept="image/*"
+                          />
+                        </div>
+                      </div>
 
                       {isGraduated && (
                         <>
@@ -235,7 +276,6 @@ function LoginForm() {
                                 name="YearOfGraduation"
                                 value={formData.YearOfGraduation}
                                 onChange={handleChange}
-                                required
                               />
                             </div>
                           </div>
@@ -257,7 +297,6 @@ function LoginForm() {
                                 name="studentId"
                                 value={formData.studentId}
                                 onChange={handleChange}
-                                required
                               />
                             </div>
                           </div>
@@ -269,30 +308,13 @@ function LoginForm() {
                           className="btn btn-primary form-prevent-multiple-submit"
                           type="submit"
                         >
-                          Register Now
+                          Update Now
                         </button>
                       </div>
                     </form>
                     <div className="row mt-3">
                       <div className="col-md-12 text-center">
                         <p>
-                          
-                          Already have an alumni account?{" "}
-                          <a href="/alumni-login">
-                            <span className="font-weight-bold base-color">
-                              Login Here
-                            </span>
-                          </a>
-                          <br />
-
-                          Are you admin??
-                          <a href="/admin-login">
-                            <span className="font-weight-bold base-color">
-                              Login Here
-                            </span>
-                          </a>
-                          <br />
-
                           Visit Uttara University{" "}
                           <a href="https://uttarauniversity.edu.bd/">
                             <span className="font-weight-bold base-color">

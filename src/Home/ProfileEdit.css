@@ -7,7 +7,7 @@ body {
     display: contents;
     justify-content: center;
     align-items: center;
-    
+    height: 100vh;
   }
   
   .container {
@@ -15,7 +15,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 800px;
+    width: 400px;
   }
   
   h1 {
