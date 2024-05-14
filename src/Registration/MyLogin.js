@@ -7,7 +7,7 @@
 //console.log(response.data.token);
 
 import React, { useState } from "react";
-//import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./MyLogin.css";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ function LoginForm() {
     adminPassword: "",
   });
 
-  //const history = useHistory(); // Access the history object
+  const history = useHistory(); // Access the history object
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +54,10 @@ function LoginForm() {
       console.log(response);
 
       if (response.status === 200) {
-        alert("User Login Successful");
+        //alert("User Login Successful");
         localStorage.setItem("tokenUser", response.data.token);
         // Redirect to job post page
-        // history.push("/Job-Arena");
+         history.push("/Job-Arena");
       } 
       
     } catch (error) {
