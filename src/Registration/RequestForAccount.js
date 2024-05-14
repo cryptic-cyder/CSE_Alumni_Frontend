@@ -62,10 +62,12 @@ function LoginForm() {
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
           console.log(data);
+         
         } else {
           const text = await response.text();
           console.log(text); // Log plain text response
         }
+        alert("Account is waiting for approval")
       } else {
         console.error("Registration failed");
       }

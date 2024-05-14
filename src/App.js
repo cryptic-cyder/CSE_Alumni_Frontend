@@ -8,13 +8,12 @@ import MyLogin from "./Registration/MyLogin"; // Import your login component
 import AdminLogin from "./Registration/AdminLogin";
 import PendingRequestsPage from "./Registration/PendingRequestsPage";
 import JobPostPage from "./JobPost/JobPostArena";
+import AlumniDashboard from "./Home/AlumniDashboard";
 
 function App() {
   return (
     <Router>
       <div>
-        <h1>CUET CSE Alumni</h1>
-        
         <Switch>
           <Route exact path="/" component={Registration} />
           <Route path="/alumni-login" component={MyLogin} />
@@ -22,9 +21,9 @@ function App() {
           <Route path="/PendingRequestsPage" component={PendingRequestsPage} />
           <Route path="/Alumni-registration" component={Registration} />
           <Route path="/Job-Arena" component={JobPostPage}></Route>
+          <Route path="/Home" component={AlumniDashboard}></Route>
           {/* Add more routes here if needed */}
         </Switch>
-      
       </div>
     </Router>
   );

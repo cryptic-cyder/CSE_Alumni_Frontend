@@ -1,16 +1,25 @@
+// const response = await axios.post(
+//   `http://localhost:8181/public/UserLogin?&email=${formData.userName}&password=${formData.password}`,
+//   FormData
+// );
+
+//const { data } = response;
+//console.log(response.data.token);
+
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import "./MyLogin.css";
+import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
-    userName: "",
-    password: "",
+    adminEmail: "",
+    adminPassword: "",
   });
 
-  const history = useHistory(); // Access the history object
+  //const history = useHistory(); // Access the history object
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,58 +32,59 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let response;
+    
     try {
-      const response = await fetch(
-        `http://localhost:8181/public/UserLogin?email=${formData.userName}&password=${formData.password}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
+      // const response = await fetch(`http://localhost:8181/public/UserLogin`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     adminEmail: formData.adminEmail,
+      //     adminPassword: formData.adminPassword,
+      //   }),
+      // });
+
+       response = await axios.post(
+        `http://localhost:8181/public/UserLogin?adminEmail=${formData.adminEmail}&adminPassword=${formData.adminPassword}`,
+        FormData
       );
 
+      console.log(response);
+
       if (response.status === 200) {
-        
-        const contentType = response.headers.get("content-type");
-        
-        if (contentType && contentType.includes("application/json")) {
-          const responseBody = await response.text(); // Get response body as text
-          console.log("Response body:", responseBody);
-          
-          if (responseBody === "User login successful") {
-            console.log("Login successful");
-            history.push("/Job-Arena"); // Redirect to job post page
-          } else {
-            console.error("Login failed");
-            alert("Login failed. Please check your credentials.");
-          }
-        } else {
-          console.error("Invalid content type");
-          alert("Invalid content type received. Please try again later.");
-        }
-      } else {
-        console.error("Request failed with status:", response.status);
-        if (response.status === 404) {
-          alert("Your account is not approved. After approval, you can login.");
-        } else if (response.status === 401) {
-          alert("Password is incorrect. Please try again.");
-        } else if (response.status === 403) {
-          alert("Sorry!!! There is no account with this email.");
-        } else if (response.status === 400) {
-          alert("Something went wrong. Please try again later.");
-        } else {
-          alert("An error occurred. Please try again later.");
-        }
-      }
+        alert("User Login Successful");
+        localStorage.setItem("tokenUser", response.data.token);
+        // Redirect to job post page
+        // history.push("/Job-Arena");
+      } 
+      
     } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
+
+      if (error.response.status === 404) {
+        alert(
+          "Your account is not approved...After approval you can login..."
+        );
+      } 
+      else if( error.response.status === 401) {
+        alert("Password is incorrect. Please try again.");
+      } 
+      else if (error.response.status === 403) {
+        alert("Sorry!!! There is no account with this email...");
+      } 
+      else if (error.response.status === 400) {
+        alert("Something went wrong. Please try again later.");
+      }
+       else {
+        alert("Invalid status...");
+      }
+
+      // console.error("Error:", error);
+      // alert(error);
     }
   };
 
-  
   return (
     <main>
       <div className="container">
@@ -86,11 +96,7 @@ function LoginForm() {
                   <div className="card-body">
                     <div className="mt-4 mb-4">
                       <div className="d-flex justify-content-center mb-2">
-                        <img
-                          src="https://erp.uttarauniversity.edu.bd/temp/assets/img/uu_brand_logo.png"
-                          style={{ height: "80px" }}
-                          alt="logo"
-                        />
+                        <img src="" style={{ height: "80px" }} alt="logo" />
                       </div>
                     </div>
                     <div className="row mt-4">
@@ -123,9 +129,9 @@ function LoginForm() {
                                   <input
                                     type="text"
                                     className="form-control"
-                                    id="userName"
-                                    name="userName"
-                                    value={formData.userName}
+                                    id="adminEmail"
+                                    name="adminEmail"
+                                    value={formData.adminEmail}
                                     onChange={handleChange}
                                     placeholder="Enter userEmail"
                                     required
@@ -142,9 +148,9 @@ function LoginForm() {
                                   <input
                                     type="password"
                                     className="form-control"
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
+                                    id="adminPassword"
+                                    name="adminPassword"
+                                    value={formData.adminPassword}
                                     onChange={handleChange}
                                     placeholder="Enter Password"
                                     required

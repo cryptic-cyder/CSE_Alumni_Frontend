@@ -1,3 +1,14 @@
+// const response = await fetch(
+//   `http://localhost:8181/public/adminLogin?email=${formData.email}&password=${formData.password}`,
+//   {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(formData),
+//   }
+// );
+
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./MyLogin.css";
@@ -23,23 +34,12 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      // const response = await fetch(
-      //   `http://localhost:8181/public/adminLogin?email=${formData.email}&password=${formData.password}`,
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(formData),
-      //   }
-      // );
-
       const response = await axios.post(
         `http://localhost:8181/public/adminLogin?email=${formData.email}&password=${formData.password}`,
         FormData
       );
 
-      const { data } = response;
+      //const { data } = response;
       console.log(response.data.token);
 
       localStorage.setItem("token", response.data.token);
@@ -62,23 +62,8 @@ function LoginForm() {
         alert("Invalid content type received. Please try again later.");
       }
     } catch (error) {
-      //   } else {
-      //     console.error("Request failed with status:", response.status);
-      //     if (response.status === 404) {
-      //       alert("Your account is not approved. After approval, you can login.");
-      //     } else if (response.status === 401) {
-      //       alert("Password is incorrect. Please try again.");
-      //     } else if (response.status === 403) {
-      //       alert("Sorry!!! There is no account with this email.");
-      //     } else if (response.status === 400) {
-      //       alert("Something went wrong. Please try again later.");
-      //     } else {
-      //       alert("An error occurred. Please try again later.");
-      //     }
-      //   }
-      // }
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
+     
+      alert("Your email or password is incorrect...");
     }
   };
 

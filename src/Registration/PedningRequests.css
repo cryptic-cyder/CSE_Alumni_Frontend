@@ -1,15 +1,52 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-  }
-  
-  .message {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
+/*body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #333; /* Set background color to black or similar */
+  /* font-family: Arial, sans-serif; /* Example font family */
+/* } */ 
+
+.admin-login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* Make the container relative for absolute positioning */
+  min-height: 100vh; /* Set container minimum height to viewport height */
+}
+
+.admin-header {
+  position: absolute;
+  top: 10px; /* Adjust top position as needed */
+  right: 20px; /* Adjust right position as needed */
+}
+
+.fetch-buttons-container {
+  margin-top: 20px; /* Adjust margin-top as needed */
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+}
+
+.fetch-buttons {
+  background-color: blue; /* Example background color */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fetch-buttons:hover {
+  background-color: darkblue; /* Example hover background color */
+}
+
+.logout-button {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: darkred;
+}
