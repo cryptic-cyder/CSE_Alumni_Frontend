@@ -11,12 +11,13 @@ import { useHistory } from "react-router-dom";
 import "./MyLogin.css";
 import axios from "axios";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 function LoginForm() {
+
   const [formData, setFormData] = useState({
-    adminEmail: "",
-    adminPassword: "",
+    email: "",
+    password: "",
   });
 
   const history = useHistory(); // Access the history object
@@ -32,26 +33,13 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let response;
-    
     try {
-      // const response = await fetch(`http://localhost:8181/public/UserLogin`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     adminEmail: formData.adminEmail,
-      //     adminPassword: formData.adminPassword,
-      //   }),
-      // });
-
-       response = await axios.post(
-        `http://localhost:8181/public/UserLogin?adminEmail=${formData.adminEmail}&adminPassword=${formData.adminPassword}`,
-        FormData
+      const response = await axios.post(
+        `http://localhost:8181/public/UserLogin?userEmail=${formData.email}&userPassword=${formData.password}`
       );
 
-      console.log(response);
+      //const { data } = response;
+      console.log(response.data.token);
 
       if (response.status === 200) {
         //alert("User Login Successful");
@@ -87,199 +75,126 @@ function LoginForm() {
 
   return (
     <main>
-      <div className="container">
-        <section className="d-flex flex-column align-items-center justify-content-center py-4">
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-md-8 d-flex flex-column align-items-center justify-content-center">
-                <div className="card mb-3">
-                  <div className="card-body">
-                    <div className="mt-4 mb-4">
-                      <div className="d-flex justify-content-center mb-2">
-                        <img src="" style={{ height: "80px" }} alt="logo" />
-                      </div>
-                    </div>
-                    <div className="row mt-4">
-                      <div className="col-md-6">
-                        <div className="card">
-                          <div className="card-body">
-                            <h6
-                              style={{
-                                fontWeight: "bold",
-                                marginTop: "10px",
-                                marginBottom: "20px",
-                                textAlign: "center",
-                                fontSize: "20px",
-                              }}
-                            >
-                              Alumni Login
-                            </h6>
-                            <form
-                              className="row g-3 form-prevent"
-                              onSubmit={handleSubmit} // Add onSubmit handler
-                            >
-                              <input
-                                type="hidden"
-                                name="_token"
-                                value="F5pwaZ8hSNWvzWto3DXEeUrUk3qTaZBEUq9jzyhC"
-                              />
 
-                              <div className="col-12">
-                                <div className="form-floating">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    id="adminEmail"
-                                    name="adminEmail"
-                                    value={formData.adminEmail}
-                                    onChange={handleChange}
-                                    placeholder="Enter userEmail"
-                                    required
-                                  />
-                                  <label htmlFor="userName">
-                                    {" "}
-                                    Alumni userEmail
-                                  </label>
-                                </div>
-                              </div>
 
-                              <div className="col-12">
-                                <div className="form-floating">
-                                  <input
-                                    type="password"
-                                    className="form-control"
-                                    id="adminPassword"
-                                    name="adminPassword"
-                                    value={formData.adminPassword}
-                                    onChange={handleChange}
-                                    placeholder="Enter Password"
-                                    required
-                                  />
-                                  <label htmlFor="password">Password</label>
-                                </div>
-                              </div>
-                              <div className="col-12">
-                                <button
-                                  className="btn btn-primary w-100 form-prevent-multiple-submit"
-                                  type="submit"
-                                  style={{
-                                    background: "#1D45B5",
-                                    border: "1px solid #1D45B5",
-                                  }}
-                                >
-                                  LOGIN
-                                </button>
-                              </div>
-                              <div className="col-12">
-                                <p className="small mb-0">
-                                  <i className="bi bi-lock-fill"></i> Forgot
-                                  your password?{" "}
-                                  <a
-                                    href="https://erp.uttarauniversity.edu.bd/alumni-forget-password"
-                                    className="font-weight-bold"
-                                  >
-                                    Click here
-                                  </a>
-                                </p>
-                                <p className="small mb-0">
-                                  <i className="bi bi-people-fill"></i> Not
-                                  registered yet as alumni?{" "}
-                                  <a href="/Alumni-registration">
-                                    <span className="font-weight-bold base-color">
-                                      Register Here
-                                    </span>
-                                  </a>
-                                </p>
-                              </div>
-                            </form>
-                          </div>
+
+
+
+
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="bg-gray-100 rounded-lg shadow-md">
+                    <div className="p-4">
+                      <h6 className="font-bold text-center text-lg mb-4">Alumni Login</h6>
+                      <form className="space-y-4" onSubmit={handleSubmit}>
+                        <input type="hidden" name="_token" value="F5pwaZ8hSNWvzWto3DXEeUrUk3qTaZBEUq9jzyhC" />
+                        <div>
+                          <label htmlFor="adminEmail" class="block">Alumni Email</label>
+                          <input type="text" id="adminEmail" name="email" value={formData.email} onChange={handleChange} className="form-input w-full" placeholder="Enter Email" required />
                         </div>
-                      </div>
-                      <div className="col-md-6">
-                        <h6
-                          style={{
-                            fontWeight: "bold",
-                            marginTop: "10px",
-                            textAlign: "center",
-                            fontSize: "20px",
-                            marginBottom: "0",
-                          }}
-                        >
-                          Alumni Database Management
-                        </h6>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            margin: "0",
-                          }}
-                        >
-                          Office of Alumni Affairs - Uttara University
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "13px",
-                            fontWeight: "bold",
-                            margin: "0",
-                          }}
-                        >
-                          Instructions:
-                        </p>
-                        <p style={{ fontSize: "13px", margin: "0" }}>
-                          If you are a Uttara University alumnus/alumna and
-                          don't have your login details, then please complete
-                          the{" "}
-                          <a
-                            href="https://erp.uttarauniversity.edu.bd/alumni-registration"
-                            className="font-weight-bold"
-                          >
-                            registration
-                          </a>{" "}
-                          process. After that, we will verify your details and
-                          send you the login details.
-                        </p>
-                        <p style={{ fontSize: "13px", margin: "0" }}>
-                          If you already have your login details, then login
-                          into your account and access your profile information.
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "13px",
-                            fontWeight: "bold",
-                            margin: "0",
-                          }}
-                        >
-                          Contact:
-                        </p>
-                        <p style={{ fontSize: "13px", margin: "0" }}>
-                          For any further query please contact us at:
-                        </p>
-                        <ul>
-                          <li style={{ fontSize: "13px", margin: "0" }}>
-                            Alumni Affairs Division, Uttara University
-                          </li>
-                          <li style={{ fontSize: "13px", margin: "0" }}>
-                            Phone: +8801872607359
-                          </li>
-                          <li style={{ fontSize: "13px", margin: "0" }}>
-                            Email: alumni@uttarauniversity.edu.bd
-                          </li>
-                          <li style={{ fontSize: "13px", margin: "0" }}>
-                            Office Address: 2<sup>nd</sup> Floor, Uttara
-                            University
-                          </li>
-                        </ul>
-                      </div>
+                        <div>
+                          <label htmlFor="adminPassword" class="block">Password</label>
+                          <input type="password" 
+                            id="adminPassword" 
+                            name="password" 
+                            value={formData.password} 
+                            onChange={handleChange}
+                            className="form-input w-full"
+                            placeholder="Enter Password" required />
+                        </div>
+                        <div>
+                          <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">LOGIN</button>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-sm mb-1"><i className="bi bi-lock-fill"></i> Forgot your password? <a href="https://erp.uttarauniversity.edu.bd/alumni-forget-password" className="font-bold">Click here</a></p>
+                          <p className="text-sm mb-1"><i className="bi bi-people-fill"></i> Not registered yet as alumni? <a href="/Alumni-registration" className="font-bold text-blue-500">Register Here</a></p>
+                        </div>
+                      </form>
                     </div>
+                  </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {/* <div className="container mx-auto">
+    <section className="flex flex-col items-center justify-center py-4">
+      <div className="container mx-auto">
+        <div className="flex justify-center">
+          <div className="w-full md:w-8/12">
+            <div className="bg-white rounded-lg shadow-md">
+              <div className="p-4">
+                <div className="mt-4 mb-4">
+                  <div className="flex justify-center mb-2">
+                    <img src="" className="h-20" alt="logo" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="bg-gray-100 rounded-lg shadow-md">
+                    <div className="p-4">
+                      <h6 className="font-bold text-center text-lg mb-4">Alumni Login</h6>
+                      <form className="space-y-4" onSubmit={handleSubmit}>
+                        <input type="hidden" name="_token" value="F5pwaZ8hSNWvzWto3DXEeUrUk3qTaZBEUq9jzyhC" />
+                        <div>
+                          <label htmlFor="adminEmail" className="block">Alumni Email</label>
+                          <input type="text" id="adminEmail" name="adminEmail" value={formData.adminEmail} onChange={handleChange} className="form-input w-full" placeholder="Enter Email" required />
+                        </div>
+                        <div>
+                          <label htmlFor="adminPassword" className="block">Password</label>
+                          <input type="password" id="adminPassword" name="adminPassword" value={formData.adminPassword} onChange={handleChange} className="form-input w-full" placeholder="Enter Password" required />
+                        </div>
+                        <div>
+                          <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">LOGIN</button>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-sm mb-1"><i className="bi bi-lock-fill"></i> Forgot your password? <a href="https://erp.uttarauniversity.edu.bd/alumni-forget-password" className="font-bold">Click here</a></p>
+                          <p className="text-sm mb-1"><i className="bi bi-people-fill"></i> Not registered yet as alumni? <a href="/Alumni-registration" className="font-bold text-blue-500">Register Here</a></p>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h6 className="font-bold text-center text-lg mb-4">Alumni Database Management</h6>
+                    <p className="text-center font-bold">Office of Alumni Affairs - Uttara University</p>
+                    <p className="text-sm font-bold mt-2">Instructions:</p>
+                    <p className="text-sm">
+                      If you are a Uttara University alumnus/alumna and don't have your login details, then please complete the <a href="https://erp.uttarauniversity.edu.bd/alumni-registration" className="font-bold text-blue-500">registration</a> process. After that, we will verify your details and send you the login details.
+                    </p>
+                    <p className="text-sm">
+                      If you already have your login details, then login into your account and access your profile information.
+                    </p>
+                    <p className="text-sm font-bold mt-2">Contact:</p>
+                    <p className="text-sm">
+                      For any further query please contact us at:
+                    </p>
+                    <ul className="list-disc list-inside">
+                      <li>Alumni Affairs Division, Uttara University</li>
+                      <li>Phone: +8801872607359</li>
+                      <li>Email: alumni@uttarauniversity.edu.bd</li>
+                      <li>Office Address: 2<sup className="text-xs">nd</sup> Floor, Uttara University</li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
-    </main>
+    </section>
+  </div> */}
+</main>
+
   );
 }
 

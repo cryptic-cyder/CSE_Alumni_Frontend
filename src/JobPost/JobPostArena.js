@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import "./JobPostArena.css"; // You can create this file for styling
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import JobPost from './JobPostRendering';
+
+
 
 const UserAuth = () => {
   // Capitalized component name
@@ -40,22 +43,72 @@ const UserAuth = () => {
     }
   };
 
+
+
+
+
+
+
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Fetch posts from backend
+    fetch('http://localhost:8181/fetch/allJobPost')
+      .then(response => response.json())
+      .then(data => setPosts(data))
+      .catch(error => console.error('Error fetching posts:', error));
+  }, []);
+
+
+
+
+
+
+
+
+
   const handleUserLogOutButton = () => {
     userLogOut();
   };
 
+
   return (
     <main>
-      <h1>Welcome to jobArena</h1>
+
+
+
+
+<div className="job-post-page">
+      <header className="header">
+        <h1>Job Posts</h1>
+      </header>
+      <div className="posts-container">
+        {posts.map(post => (
+          <JobPost key={post.id} post={post} />
+        ))}
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+     
       <div className="admin-header">
         <button className="logout-button" onClick={handleUserLogOutButton}>
           User Logout
         </button>
 
         <p className="small mb-0">
-          <i className="bi bi-people-fill"></i> Want to go profile{" "}
+          <i className="bi bi-people-fill"></i> Want to go profile?{" "}
           <a href="/User-Profile">
-            <span className="font-weight-bold base-color">Cick Here</span>
+            <span className="font-weight-bold base-color">Click Here</span>
           </a>
         </p>
 

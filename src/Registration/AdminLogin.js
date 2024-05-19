@@ -11,7 +11,7 @@
 
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "./MyLogin.css";
+//import "./MyLogin.css";
 import axios from "axios";
 
 function LoginForm() {
@@ -42,7 +42,7 @@ function LoginForm() {
       //const { data } = response;
       console.log(response.data.token);
 
-      localStorage.setItem("token", response.data.token);
+      
       if (response.status === 200) {
         // const contentType = response.headers.get("content-type");
         // if (contentType && contentType.includes("application/json")) {
@@ -51,6 +51,7 @@ function LoginForm() {
         //   if (responseBody === "User login successful") {
         //     console.log("Login successful");
         console.log("Login Successful");
+        localStorage.setItem("token", response.data.token);
         history.push("/PendingRequestsPage"); // Redirect to job post page
         //}
         // else {
@@ -69,7 +70,107 @@ function LoginForm() {
 
   return (
     <main>
-      <div className="container">
+
+
+
+
+
+
+<center>
+<div className="row mt-4">
+                      <div className="col-md-6">
+                        <div className="card">
+                          <div className="card-body">
+                            <h6
+                              style={{
+                                fontWeight: "bold",
+                                marginTop: "10px",
+                                marginBottom: "20px",
+                                textAlign: "center",
+                                fontSize: "20px",
+                              }}
+                            >
+                              Admin Login
+                            </h6>
+                            <form
+                              className="row g-3 form-prevent"
+                              onSubmit={handleSubmit} // Add onSubmit handler
+                            >
+                              <input
+                                type="hidden"
+                                name="_token"
+                                value="F5pwaZ8hSNWvzWto3DXEeUrUk3qTaZBEUq9jzyhC"
+                              />
+
+                              <div className="col-12">
+                                <div className="form-floating">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="Enter userEmail"
+                                    required
+                                  />
+                                  <label htmlFor="userName">
+                                    {" "}
+                                    Admin userEmail
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div className="col-12">
+                                <div className="form-floating">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    id="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="Enter Password"
+                                    required
+                                  />
+                                  <label htmlFor="password">Password</label>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <button
+                                  className="btn btn-primary w-100 form-prevent-multiple-submit"
+                                  type="submit"
+                                  style={{
+                                    background: "#1D45B5",
+                                    border: "1px solid #1D45B5",
+                                  }}
+                                >
+                                  LOGIN
+                                </button>
+                              </div>
+                              </form>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <div className="container">
         <section className="d-flex flex-column align-items-center justify-content-center py-4">
           <div className="container">
             <div className="row justify-content-center">
@@ -264,7 +365,7 @@ function LoginForm() {
             </div>
           </div>
         </section>
-      </div>
+      </div> */}
     </main>
   );
 }

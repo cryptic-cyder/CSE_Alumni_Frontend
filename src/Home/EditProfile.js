@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProfileEdit.css";
 import axios from "axios";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import userEvent from "@testing-library/user-event";
 
 function LoginForm() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MyLogin.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
