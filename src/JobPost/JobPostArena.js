@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from 'react';
 import "./JobPostArena.css"; // You can create this file for styling
 import { useHistory } from "react-router-dom";
@@ -89,14 +91,6 @@ const UserAuth = () => {
         ))}
       </div>
     </div>
-
-
-
-
-
-
-
-
 
 
      

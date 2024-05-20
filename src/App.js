@@ -29,6 +29,7 @@ function App() {
           <Route path="/Home" component={AlumniDashboard}></Route>
           <Route path="/User-Profile" component={userProfile}></Route>
           <Route path="/edit-profile" component={editProfile}></Route>
+          
           <Route path="/Job-Arena" component={JobPost} />
           {/* Add more routes here if needed */}
         </Switch>
