@@ -1,0 +1,49 @@
+.job-post {
+    margin: 20px;
+  }
+  
+  .add-comments-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .add-comment {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  
+  .comment-textarea,
+  .comment-file-input,
+  .submit-comment-button {
+    margin-bottom: 10px;
+  }
+  
+  .comment-textarea {
+    width: 60%;
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .comment-file-input {
+    padding: 5px;
+  }
+  
+  .submit-comment-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    width: 15%;
+    height: 50px;
+  }
+  
+  .comments-button {
+    margin-top: 10px;
+  }
+  
