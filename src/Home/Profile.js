@@ -39,6 +39,7 @@ function Example() {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized access. Please log in again.");
         alert("Token is invalid. Please log in again.");
+        history.push("/alumni-login");
       } else {
         console.error("Error fetching pending requests:", error);
       }

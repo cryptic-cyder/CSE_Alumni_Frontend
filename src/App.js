@@ -3,6 +3,7 @@
 import React from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Registration from "./Registration/RequestForAccount";
 import MyLogin from "./Registration/MyLogin"; // Import your login component
 import AdminLogin from "./Registration/AdminLogin";
@@ -10,10 +11,11 @@ import PendingRequestsPage from "./Registration/PendingRequestsPage";
 
 import AlumniDashboard from "./Home/AlumniDashboard";
 import userProfile from "./Home/Profile";
-import editProfile from "./Home/EditProfile"
-
+import editProfile from "./Home/EditProfile";
 
 import JobPost from "./JobPost/JobPostArena";
+
+import PostingJobRedirect from "./JobPost/PostJobPage";
 
 function App() {
   return (
@@ -31,6 +33,9 @@ function App() {
           <Route path="/edit-profile" component={editProfile}></Route>
           
           <Route path="/Job-Arena" component={JobPost} />
+          
+          <Route path="/PostingJob" component={PostingJobRedirect} />
+          
           {/* Add more routes here if needed */}
         </Switch>
       </div>

@@ -4,7 +4,6 @@ import "./JobPostRendering.css"; // Import the CSS file
 import { useHistory } from "react-router-dom";
 
 const JobPost = ({ post }) => {
-
   const history = useHistory();
 
   const [comments, setComments] = useState([]);
@@ -18,9 +17,22 @@ const JobPost = ({ post }) => {
   }, [post]);
 
   const fetchComments = async () => {
+    const token = localStorage.getItem("tokenUser");
+
+    if (!token) {
+      console.error("Token not found");
+      return;
+    }
+
     try {
       const response = await axios.post(
-        `http://localhost:8181/fetch/allCommentOfAnyPost/${post.id}`
+        `http://localhost:8181/fetch/allCommentOfAnyPost/${post.id}`,
+        {}, // This is the data parameter, which is empty in this case
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setComments(response.data);
       setShowComments(true); // Show comments after fetching them
@@ -47,15 +59,33 @@ const JobPost = ({ post }) => {
       formData.append("resume", resume);
     }
 
+    const token = localStorage.getItem("tokenUser");
+
+    if (!token) {
+      console.error("Token not found");
+      return;
+    }
+
     try {
-      const response = await axios.post(`/comment/${post.id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      alert("Comment added:", response.data);
-      history.push("/Job-Arena")
-      // fetchComments(); // Refresh comments after adding a new one
+      const response = await axios.post(
+        `http://localhost:8181/comment/${post.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Comment added:", response.data);
+        fetchComments();
+      }
+      else if(response.status===401){
+        alert("Your token is expired...Please log in first...");
+        history.push("/alumni-login");
+      }
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -64,7 +94,9 @@ const JobPost = ({ post }) => {
   return (
     <div className="job-post">
       {/* <h2>{post.id}</h2> */}
-      <h2>{post.title}</h2>
+      <h2>
+        <b>{post.title}</b>
+      </h2>
       <p>{post.description}</p>
 
       {post.images && post.images.length > 0 && (
