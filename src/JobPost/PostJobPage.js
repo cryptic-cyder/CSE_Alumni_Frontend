@@ -59,6 +59,10 @@ const JobPostingForm = () => {
         alert("Job posted successfully");
         history.push("/Job-Arena");
       }
+      else if (response.status === 401) {
+        alert("Token is not valid...Please log in again...");
+        history.push("/alumni-login");
+      }
     } catch (error) {
       console.error("Error posting job:", error);
       alert("Error posting job");

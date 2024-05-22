@@ -50,7 +50,6 @@ function AdminLogin() {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized access. Please log in again.");
         alert("Token is invalid. Please log in again.");
-
         history.push("/admin-login");
       } else {
         console.error("Error fetching pending requests:", error);
@@ -127,8 +126,10 @@ function AdminLogin() {
           )
         );
         alert("Request Accepted...");
-      } else if (response.status === 400) {
+      } 
+      else if (response.status === 401) {
         alert("Token is invalid. Please log in again.");
+        history.push("/admin-login");
       }
     } catch (error) {
       console.error("Error accepting request:", error);
@@ -159,8 +160,9 @@ function AdminLogin() {
           )
         );
         alert("Request Rejected...");
-      } else if (response.status === 400) {
+      } else if (response.status === 401) {
         alert("Token is invalid. Please log in again.");
+        history.push("/admin-login");
       }
     } catch (error) {
       console.error("Error accepting request:", error);
