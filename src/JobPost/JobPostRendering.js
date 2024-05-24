@@ -4,6 +4,7 @@ import "./JobPostRendering.css"; // Import the CSS file
 import { useHistory } from "react-router-dom";
 
 const JobPost = ({ post }) => {
+  
   const history = useHistory();
 
   const [comments, setComments] = useState([]);
@@ -20,8 +21,8 @@ const JobPost = ({ post }) => {
     const token = localStorage.getItem("tokenUser");
 
     if (!token) {
-      console.error("Token not found");
-      return;
+      alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
     }
 
     try {
@@ -34,8 +35,15 @@ const JobPost = ({ post }) => {
           },
         }
       );
-      setComments(response.data);
-      setShowComments(true); // Show comments after fetching them
+      if(response.status===200){
+         setComments(response.data);
+         setShowComments(true); // Show comments after fetching them
+      }
+      else if(response.status===401){
+        alert("Your token is expired...Please log in first...");
+        history.push("/alumni-login");
+      }
+
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
@@ -62,8 +70,8 @@ const JobPost = ({ post }) => {
     const token = localStorage.getItem("tokenUser");
 
     if (!token) {
-      console.error("Token not found");
-      return;
+      alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
     }
 
     try {
@@ -177,6 +185,32 @@ const JobPost = ({ post }) => {
 };
 
 export default JobPost;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';

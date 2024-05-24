@@ -22,13 +22,13 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={Registration} />
+          <Route exact path="/" component={AlumniDashboard} />
           <Route path="/alumni-login" component={MyLogin} />
           <Route path="/admin-login" component={AdminLogin} />
           <Route path="/PendingRequestsPage" component={PendingRequestsPage} />
           <Route path="/Alumni-registration" component={Registration} />
           
-          <Route path="/Home" component={AlumniDashboard}></Route>
+          <Route path="/Register" component={Registration}></Route>
           <Route path="/User-Profile" component={userProfile}></Route>
           <Route path="/edit-profile" component={editProfile}></Route>
           

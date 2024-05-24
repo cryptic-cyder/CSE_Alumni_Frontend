@@ -44,6 +44,13 @@ const JobPostingForm = () => {
 
     try {
       const token = localStorage.getItem("tokenUser");
+
+      if (!token) {
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
+        return;
+      }
+
       const response = await axios.post(
         "http://localhost:8181/forPostingJob",
         formDataObj,

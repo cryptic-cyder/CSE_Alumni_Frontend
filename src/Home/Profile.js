@@ -18,8 +18,8 @@ function Example() {
       const token = localStorage.getItem("tokenUser");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
       }
 
       const requestBody = { token };
@@ -53,8 +53,8 @@ function Example() {
       const token = localStorage.getItem("tokenUser");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
       }
 
       const requestBody = { token };
@@ -67,7 +67,7 @@ function Example() {
       if (response.status === 200) {
         alert("Your account is deleted...");
         localStorage.removeItem("tokenUser");
-        history.push("/PendingRequestsPage");
+        history.push("/Alumni-registration");
       } else {
         console.error("Unexpected response status:", response.status);
       }

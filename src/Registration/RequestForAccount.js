@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./MyLogin.css";
+import { useHistory } from "react-router-dom";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function LoginForm() {
+
+  const history = useHistory();
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -45,6 +48,9 @@ function LoginForm() {
   };
 
   const handleSubmit = async (e) => {
+
+   
+
     e.preventDefault();
 
     try {
@@ -68,7 +74,8 @@ function LoginForm() {
           const text = await response.text();
           console.log(text); // Log plain text response
         }
-        alert("Account is waiting for approval")
+        alert("Account is waiting for approval");
+        history.push("/Home")
       } else {
         console.error("Registration failed");
       }
@@ -121,7 +128,7 @@ function LoginForm() {
                             <input
                               type="text"
                               maxLength="255"
-                              className="form-control uppercase"
+                              className="form-control"
                               name="userName"
                               value={formData.userName} // Bind value to state variable
                               onChange={handleChange} // Handle change event

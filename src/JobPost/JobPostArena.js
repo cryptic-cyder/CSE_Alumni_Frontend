@@ -3,6 +3,7 @@ import "./JobPostArena.css"; // You can create this file for styling
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import JobPost from "./JobPostRendering";
+import Navbar1 from "../components/Navbar1";
 
 const UserAuth = () => {
   // Capitalized component name
@@ -13,8 +14,8 @@ const UserAuth = () => {
       const token = localStorage.getItem("tokenUser");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
       }
 
       const requestBody = { token };
@@ -62,14 +63,21 @@ const UserAuth = () => {
 
   return (
     <main>
+
+      <Navbar1/>
+
       <div className="job-post-page">
         <header className="header">
           <h1>Job Posts</h1>
         </header>
 
-        <button className="logout-button" onClick={handlePostJobButton}>
+        <button className="green-button" onClick={handlePostJobButton}>
           Post Job
         </button>
+
+        <button className="logout-button" onClick={handleUserLogOutButton}>
+            User Logout
+          </button>
 
         <button
           className="btn btn-primary"
@@ -79,12 +87,6 @@ const UserAuth = () => {
         >
           <span className="font-weight-bold">See Profile</span>
         </button>
-
-        <div className="admin-header">
-          <button className="logout-button" onClick={handleUserLogOutButton}>
-            User Logout
-          </button>
-        </div>
 
         <div className="posts-container">
           {posts.map((post) => (

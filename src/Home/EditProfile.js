@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./ProfileEdit.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 import userEvent from "@testing-library/user-event";
 
 function LoginForm() {
+
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -72,8 +76,8 @@ function LoginForm() {
       const token = localStorage.getItem("tokenUser");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
       }
 
       // const requestBody = { token };
@@ -118,10 +122,13 @@ function LoginForm() {
       if (response.status === 200) {
         alert("Your account is updated...");
         console.log(response.data); // Log response data
-      } else {
-        console.error("Registration failed");
+      } 
+      else if(response.status===401){
+        alert("You have not logged in...First log in please");
+        history.push("/alumni-login");
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error:", error);
     }
   };

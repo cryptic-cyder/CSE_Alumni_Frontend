@@ -18,6 +18,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./PedningRequests.css";
 import axios from "axios";
+import Navbar1 from "../components/Navbar1";
+import styled from 'styled-components';
+
 
 function AdminLogin() {
   const [pendingRequests, setPendingRequests] = useState([]); // Define pendingRequests state
@@ -29,8 +32,8 @@ function AdminLogin() {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...Please log in first");
+        history.push("/admin-login");
       }
 
       const requestBody = { token };
@@ -46,12 +49,14 @@ function AdminLogin() {
       } else {
         console.error("Unexpected response status:", response.status);
       }
-    } catch (error) {
+    } 
+    catch (error) {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized access. Please log in again.");
         alert("Token is invalid. Please log in again.");
         history.push("/admin-login");
-      } else {
+      }
+       else {
         console.error("Error fetching pending requests:", error);
       }
     }
@@ -62,8 +67,8 @@ function AdminLogin() {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...Please log in first");
+        history.push("/admin-login");
       }
 
       const requestBody = { token };
@@ -84,7 +89,9 @@ function AdminLogin() {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized access. Please log in again.");
         alert("Token is invalid. Please log in again.");
-      } else {
+        history.push("/admin-login");
+      } 
+      else {
         console.error("Error fetching pending requests:", error);
       }
     }
@@ -107,8 +114,8 @@ function AdminLogin() {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...Please log in first");
+        history.push("/admin-login");
       }
 
       const requestBody = { token, studentEmail };
@@ -126,6 +133,7 @@ function AdminLogin() {
           )
         );
         alert("Request Accepted...");
+        fetchPendingRequests();
       } 
       else if (response.status === 401) {
         alert("Token is invalid. Please log in again.");
@@ -136,13 +144,15 @@ function AdminLogin() {
     }
   };
 
+
+
   const handleRejectRequest = async (studentEmail) => {
     try {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("Token not found");
-        return;
+        alert("Token not found...Please log in first");
+        history.push("/admin-login");
       }
 
       const requestBody = { token, studentEmail };
@@ -160,7 +170,9 @@ function AdminLogin() {
           )
         );
         alert("Request Rejected...");
-      } else if (response.status === 401) {
+        fetchPendingRequests();
+      } 
+      else if (response.status === 401) {
         alert("Token is invalid. Please log in again.");
         history.push("/admin-login");
       }
@@ -177,6 +189,7 @@ function AdminLogin() {
 
   return (
     <main>
+      <Navbar1/>
       <h1>Admin Dashboard</h1>
       <div className="admin-header">
         <button className="logout-button" onClick={handleAdminLogOutButton}>
@@ -189,11 +202,7 @@ function AdminLogin() {
         </button>
       </div>
 
-      HomePage??
-      <a href="/Home">
-        <span className="font-weight-bold base-color">Click Here</span>
-      </a>
-      <br />
+
       
       {isButtonClicked && (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
