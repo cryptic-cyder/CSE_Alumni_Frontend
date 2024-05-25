@@ -19,8 +19,7 @@ import { useHistory } from "react-router-dom";
 import "./PedningRequests.css";
 import axios from "axios";
 import Navbar1 from "../components/Navbar1";
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 function AdminLogin() {
   const [pendingRequests, setPendingRequests] = useState([]); // Define pendingRequests state
@@ -49,14 +48,12 @@ function AdminLogin() {
       } else {
         console.error("Unexpected response status:", response.status);
       }
-    } 
-    catch (error) {
+    } catch (error) {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized access. Please log in again.");
         alert("Token is invalid. Please log in again.");
         history.push("/admin-login");
-      }
-       else {
+      } else {
         console.error("Error fetching pending requests:", error);
       }
     }
@@ -80,7 +77,7 @@ function AdminLogin() {
 
       if (response.status === 200) {
         alert("Successfully logout as admin");
-        localStorage.removeItem("token")
+        localStorage.removeItem("token");
         history.push("/admin-login");
       } else {
         console.error("Unexpected response status:", response.status);
@@ -90,8 +87,7 @@ function AdminLogin() {
         console.error("Unauthorized access. Please log in again.");
         alert("Token is invalid. Please log in again.");
         history.push("/admin-login");
-      } 
-      else {
+      } else {
         console.error("Error fetching pending requests:", error);
       }
     }
@@ -134,8 +130,7 @@ function AdminLogin() {
         );
         alert("Request Accepted...");
         fetchPendingRequests();
-      } 
-      else if (response.status === 401) {
+      } else if (response.status === 401) {
         alert("Token is invalid. Please log in again.");
         history.push("/admin-login");
       }
@@ -143,8 +138,6 @@ function AdminLogin() {
       console.error("Error accepting request:", error);
     }
   };
-
-
 
   const handleRejectRequest = async (studentEmail) => {
     try {
@@ -171,8 +164,7 @@ function AdminLogin() {
         );
         alert("Request Rejected...");
         fetchPendingRequests();
-      } 
-      else if (response.status === 401) {
+      } else if (response.status === 401) {
         alert("Token is invalid. Please log in again.");
         history.push("/admin-login");
       }
@@ -189,7 +181,7 @@ function AdminLogin() {
 
   return (
     <main>
-      <Navbar1/>
+      <Navbar1 />
       <h1>Admin Dashboard</h1>
       <div className="admin-header">
         <button className="logout-button" onClick={handleAdminLogOutButton}>
@@ -202,26 +194,22 @@ function AdminLogin() {
         </button>
       </div>
 
-
-      
       {isButtonClicked && (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  profile Picture
+                  Name
                 </th>
 
                 <th scope="col" className="px-6 py-3">
-                  Student ID
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Graduation Year
+                  Student Gmail
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Identity
                 </th>
+                
                 <th scope="col" className="px-6 py-3">
                   Action
                 </th>
@@ -230,7 +218,7 @@ function AdminLogin() {
             {pendingRequests.map((user) => (
               <tbody>
                 <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                  <th
+                  {/* <th
                     scope="row"
                     className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
                   >
@@ -245,10 +233,13 @@ function AdminLogin() {
                         {user.email}
                       </div>
                     </div>
-                  </th>
+                  </th> */}
 
-                  <td className="px-6 py-4">{user.studentId}</td>
-                  <td className="px-6 py-4">{user.graduationYear}</td>
+                  <td className="px-6 py-4"><b>{user.name}</b></td>
+                  <td className="px-6 py-4"><b>{user.email}</b></td>
+
+                  {/* <td className="px-6 py-4">{user.studentId}</td>
+                  <td className="px-6 py-4">{user.graduationYear}</td> */}
 
                   <td>
                     <a

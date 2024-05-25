@@ -69,7 +69,76 @@ const Navbar1 = () => {
       alert("An error occurred while validating the token. Please try again.");
       history.push("/alumni-login");
     }
+
   };
+
+
+
+  const validateAdmin = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Token not found...You have not logged in...Please log in first");
+      history.push("/admin-login"); 
+    }
+
+    try {
+      const requestBody = { token };
+      const response = await axios.post(
+        "http://localhost:8181/public/tokenValidation",
+        requestBody
+      );
+
+      if (response.status === 200) {
+        history.push("/PendingRequestsPage");
+      } 
+      else {
+        alert("Token is invalid...Please log in again.");
+        history.push("/admin-login");
+      }
+    }
+    catch (error) {
+      console.error("Error validating token:", error);
+      alert("An error occurred while validating the token. Please try again.");
+      history.push("/admin-login");
+    }
+  };
+
+
+
+  const validateForProfile = async () => {
+    const token = localStorage.getItem("tokenUser");
+
+    if (!token) {
+      alert("Token not found...You have not logged in...Please log in first");
+      history.push("/alumni-login"); 
+    }
+
+    try {
+      const requestBody = { token };
+      const response = await axios.post(
+        "http://localhost:8181/public/tokenValidation",
+        requestBody
+      );
+
+      if (response.status === 200) {
+        history.push("/User-Profile");
+      } 
+      else {
+        alert("Token is invalid...Please log in again.");
+        history.push("/alumni-login");
+      }
+    }
+    catch (error) {
+      console.error("Error validating token:", error);
+      alert("An error occurred while validating the token. Please try again.");
+      history.push("/alumni-login");
+    }
+  };
+
+
+
+
 
   return (
     <NavbarContainer>
@@ -85,7 +154,10 @@ const Navbar1 = () => {
           <NavLink to="/Job-Arena" onClick={validateToken}>JobSection</NavLink>
         </NavLinkItem>
         <NavLinkItem>
-          <NavLink to="/admin-login">Admin</NavLink>
+          <NavLink to="/Job-Arena" onClick={validateForProfile}>Profile</NavLink>
+        </NavLinkItem>
+        <NavLinkItem>
+          <NavLink to="/admin-login" onClick={validateAdmin}>Admin</NavLink>
         </NavLinkItem>
         <NavLinkItem>
           <NavLink to="/">About</NavLink>

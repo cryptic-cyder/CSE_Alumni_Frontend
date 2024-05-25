@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from "react";
-import "./MyLogin.css";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import "./MyLogin.css"; // Import your custom CSS for styling
+import Navbar1 from "../components/Navbar1";
 
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-function LoginForm() {
-
+const LoginForm = () => {
   const history = useHistory();
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
     passwordOfUser: "",
-    profilePicOfUser: null,
+    //profilePicOfUser: null,
     identityPic: null,
-
-    studentId: "",
-    YearOfGraduation: "",
+    //studentId: "",
+    //YearOfGraduation: "",
+    //graduationStatus: "",
   });
 
+  // const [isGraduated, setIsGraduated] = useState(false);
 
-  const [isGraduated, setIsGraduated] = useState(false);
-
-  const handleGraduationStatusChange = (e) => {
-    const { value } = e.target;
-    setIsGraduated(value === "Graduated");
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      graduationStatus: value,
-      graduationYear: "", // Reset graduation year when status changes
-    }));
-  };
+  // const handleGraduationStatusChange = (e) => {
+  //   const { value } = e.target;
+  //   setIsGraduated(value === "Graduated");
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     graduationStatus: value,
+  //     YearOfGraduation: "", // Reset graduation year when status changes
+  //     studentId: "", // Reset studentId when status changes
+  //   }));
+  // };
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -48,9 +46,6 @@ function LoginForm() {
   };
 
   const handleSubmit = async (e) => {
-
-   
-
     e.preventDefault();
 
     try {
@@ -59,24 +54,30 @@ function LoginForm() {
         formDataObj.append(key, formData[key]);
       }
 
-      const response = await fetch("http://localhost:8181/public/requestForAccount", {
-        method: "POST",
-        body: formDataObj,
-      });
+      const response = await fetch(
+        "http://localhost:8181/public/requestForAccount",
+        {
+          method: "POST",
+          body: formDataObj,
+        }
+      );
 
       if (response.ok) {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
           console.log(data);
-         
         } else {
           const text = await response.text();
           console.log(text); // Log plain text response
         }
         alert("Account is waiting for approval");
-        history.push("/Home")
-      } else {
+        history.push("/");
+      }
+      else if(response.status===302){
+        alert("There is already an account with this email...Try another one");
+      }
+      else {
         console.error("Registration failed");
       }
     } catch (error) {
@@ -85,258 +86,144 @@ function LoginForm() {
   };
 
   return (
-    <main>
-      <div className="container">
-        <section className="d-flex flex-column align-items-center justify-content-center py-4">
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="d-flex flex-column align-items-center justify-content-center">
-                <div className="card mb-3">
-                  <div className="card-body">
-                    <div className="mt-4 mb-4">
-                      <div className="d-flex justify-content-center mb-2">
-                        <img
-                          src="https://erp.uttarauniversity.edu.bd/temp/assets/img/uu_brand_logo.png"
-                          style={{ height: "80px" }}
-                          alt="logo"
-                        />
-                      </div>
-                    </div>
-                    <h4 className="font-weight-bold text-center text-uppercase mb-2">
-                      Alumni Registration
-                    </h4>
-                    <form
-                      className="row mt-2 g-3 form-prevent"
-                      method="POST"
-                      encType="multipart/form-data"
-                      onSubmit={handleSubmit}
-                    >
-                      <input
-                        type="hidden"
-                        name="_token"
-                        value="PnHm4L2FHyuOIN2UXk55Ra0sLEKyOsPbNfFCUOXw"
-                      />
-
-
-                      <div className="row mt-3">
-                        <div className="col-md-6">
-                          <div className="form-group mb-2">
-                            <label className="form-label">
-                              Full Name 
-                              <span className="required-mask">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              maxLength="255"
-                              className="form-control"
-                              name="userName"
-                              value={formData.userName} // Bind value to state variable
-                              onChange={handleChange} // Handle change event
-                              required
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-md-6">
-                          <div className="form-group mb-2">
-                            <label className="form-label">
-                              Email 
-                              <span className="required-mask">*</span>
-                            </label>
-                            <input
-                              type="email"
-                              maxLength="255"
-                              className="form-control"
-                              name="userEmail"
-                              value={formData.userEmail}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-md-6">
-                          <div className="form-group mb-2">
-                            <label className="form-label">
-                              Password 
-                              <span className="required-mask">*</span>
-                            </label>
-                            <input
-                              type="password"
-                              maxLength="255"
-                              className="form-control"
-                              name="passwordOfUser"
-                              value={formData.passwordOfUser}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-
-
-                        <div className="col-md-6">
-                          <div className="form-group mb-2">
-                            <label className="form-label">
-                              Profile Picture
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              name="profilePicOfUser"
-                              onChange={handleChange}
-                              accept="image/*" // This attribute restricts the file selection to images only
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="col-md-6">
-                        <div className="form-group mb-2">
-                          <label className="form-label">
-                            Graduation Status{" "}
-                            <span className="required-mask">*</span>
-                          </label>
-                          <select
-                            className="form-select"
-                            name="graduationStatus"
-                            value={formData.graduationStatus}
-                            onChange={handleGraduationStatusChange}
-                            required
-                          >
-                            <option value="">-- Select --</option>
-                            <option value="Graduated">Graduated</option>
-                            <option value="Non-graduated">Non-graduated</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="col-md-6">
-                            <div className="form-group mb-2">
-                              <label className="form-label">
-                                Identity {" "}
-                                <span className="required-mask">*</span>
-                              </label>
-                              <input
-                                type="file"
-                                className="form-control"
-                                name="identityPic"
-                                onChange={handleChange}
-                                accept="image/*"
-                                required
-                              />
-                            </div>
-                          </div>
-
-                      {isGraduated && (
-                        <>
-                          <div className="col-md-6">
-                            <div className="form-group mb-2">
-                              <label className="form-label">
-                                Graduation Year{" "}
-                                <span className="required-mask">*</span>
-                              </label>
-                              <input
-                                type="text"
-                                maxLength="4" // Assuming maximum length of graduation year is 4
-                                className="form-control uppercase"
-                                name="YearOfGraduation"
-                                value={formData.YearOfGraduation}
-                                onChange={handleChange}
-                                required
-                              />
-                            </div>
-                          </div>
-                        </>
-                      )}
-
-                      {!isGraduated && (
-                        <>
-                          <div className="col-md-6">
-                            <div className="form-group mb-2">
-                              <label className="form-label">
-                                StudentId{" "}
-                                <span className="required-mask">*</span>
-                              </label>
-                              <input
-                                type="text"
-                                maxLength="8" // Assuming maximum length of graduation year is 4
-                                className="form-control uppercase"
-                                name="studentId"
-                                value={formData.studentId}
-                                onChange={handleChange}
-                                required
-                              />
-                            </div>
-                          </div>
-                        </>
-                      )}
-
-                      <div className="col-md-12 text-center">
-                        <button
-                          className="btn btn-primary form-prevent-multiple-submit"
-                          type="submit"
-                        >
-                          Register Now
-                        </button>
-                      </div>
-                    </form>
-                    <div className="row mt-3">
-                      <div className="col-md-12 text-center">
-                        <p>
-                          
-                          Already have an alumni account?{" "}
-                          <a href="/alumni-login">
-                            <span className="font-weight-bold base-color">
-                              Login Here
-                            </span>
-                          </a>
-                          <br />
-
-                          Are you admin??
-                          <a href="/admin-login">
-                            <span className="font-weight-bold base-color">
-                              Login Here
-                            </span>
-                          </a>
-                          <br />
-
-                          Visit Uttara University{" "}
-                          <a href="https://uttarauniversity.edu.bd/">
-                            <span className="font-weight-bold base-color">
-                              Official Website
-                            </span>
-                          </a>
-                          <br />
-                          For any alumni related queries please contact{" "}
-                          <span className="font-weight-bold base-color">
-                            alumni@uttarauniversity.edu.bd
-                          </span>{" "}
-                          or call at{" "}
-                          <span className="font-weight-bold base-color">
-                            01872-607359
-                          </span>
-                          <br />
-                          Visit alumni official{" "}
-                          <a
-                            href="https://www.facebook.com/groups/uualumniassociation"
-                            target="_blank"
-                          >
-                            <span className="font-weight-bold base-color">
-                              Facebook page
-                            </span>
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  
+    <main className="login-container">
+     
+      <div className="login-content">
+        {/* <div className="logo-container">
+          <img
+            src="https://www.tbsnews.net/sites/default/files/styles/author/public/organization/logo/cuet.png"
+            className="logo"
+            alt="logo"
+          />
+        </div> */}
+        <h4 className="form-title">
+          <b>Alumni Registration</b>
+        </h4>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="userName"
+              value={formData.userName}
+              onChange={handleChange}
+              placeholder="Full Name"
+              required
+            />
           </div>
-        </section>
-      </div>
+
+          <div className="form-group">
+            <input
+              type="email"
+              className="form-control"
+              name="userEmail"
+              value={formData.userEmail}
+              onChange={handleChange}
+              placeholder="Email"
+              
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control"
+              name="passwordOfUser"
+              value={formData.passwordOfUser}
+              onChange={handleChange}
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          {/* <div className="form-group">
+            <b>Profile Picture</b>
+            <input
+              type="file"
+              className="form-control"
+              name="profilePicOfUser"
+              onChange={handleChange}
+              accept="image/*" // This attribute restricts the file selection to images only
+            />
+          </div> */}
+
+          {/* <div className="form-group">
+            <select
+              className="form-control"
+              name="graduationStatus"
+              value={formData.graduationStatus}
+              onChange={handleGraduationStatusChange}
+              required
+            >
+              <option value="">-- Graduation Status --</option>
+              <option value="Graduated">Graduated</option>
+              <option value="Non-graduated">Non-graduated</option>
+            </select>
+          </div>
+
+          {isGraduated && (
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                name="YearOfGraduation"
+                value={formData.YearOfGraduation}
+                onChange={handleChange}
+                placeholder="Graduation Year"
+                required
+              />
+            </div>
+          )}
+
+          {!isGraduated && (
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                name="studentId"
+                value={formData.studentId}
+                onChange={handleChange}
+                placeholder="Student ID"
+                required
+              />
+            </div>
+          )} */}
+
+          <div className="form-group">
+            <b>Student ID card or PVC</b>
+            <input
+              type="file"
+              className="form-control"
+              name="identityPic"
+              onChange={handleChange}
+              accept="image/*"
+              placeholder="Identity Picture"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary btn-block">
+              Register Now
+            </button>
+          </div>
+        </form>
+
+          <p> <center>
+            Already have an alumni account?{" "}
+            <a href="/alumni-login">Login Here</a>
+            </center>
+          </p>
+
+          <p><center>
+            Visit CUET <a href="https://www.cuet.ac.bd/">Official Website</a>
+            </center>
+          </p>
+        </div>
+     
     </main>
   );
-}
+};
 
 export default LoginForm;

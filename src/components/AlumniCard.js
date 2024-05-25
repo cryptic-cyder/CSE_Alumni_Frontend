@@ -1,5 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
 const Card = styled.li`
   display: flex;
@@ -40,16 +42,59 @@ const CardEmail = styled.p`
   text-align: center;
 `;
 
+const dummyPic = 'https://th.bing.com/th/id/OIP.rmim2jYzNpSCslo60INohQHaF9?rs=1&pid=ImgDetMain';
+
 const AlumniCard = ({ alumni }) => {
+
+  const history = useHistory();
+
+  const handleClick = async () => {
+    // const token = localStorage.getItem("token");
+
+    // if (!token) {
+    //   alert("Token not found...You have not logged in...Please log in first");
+    //   history.push("/admin-login"); 
+    // }
+
+    try {
+      //const requestBody = { token };
+      const response = await axios.post(
+        `http://localhost:8181/fetchOthers/${alumni.email}`
+      
+      );
+
+      if (response.status === 200) {
+        history.push("/PendingRequestsPage");
+      } 
+      else if(response.status===401){
+        alert("Token is invalid...Please log in again.");
+        history.push("/alumni-login");
+      }
+    }
+    catch (error) {
+      console.error("Error validating token:", error);
+      alert("An error occurred while validating the token. Please try again.");
+      //history.push("/admin-login");
+    }
+  };
+
+
+
   return (
+    <div onClick={handleClick}>
     <Card>
       <CardImage
-        src={`data:image/jpeg;base64,${alumni.profilePic}`}
+        src={
+          alumni.profilePic
+            ? `data:image/jpeg;base64,${alumni.profilePic}`
+            : dummyPic
+        }
         alt={`${alumni.name}'s profile`}
       />
       <CardName>{alumni.name}</CardName>
       <CardEmail>{alumni.email}</CardEmail>
     </Card>
+    </div>
   );
 };
 

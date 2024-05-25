@@ -63,38 +63,39 @@ const UserAuth = () => {
 
   return (
     <main>
+  <Navbar1 />
 
-      <Navbar1/>
+  <div className="job-post-page">
+    <header className="header">
+      <h1><center>Job Posts</center></h1>
+      <button className="red-button" onClick={handleUserLogOutButton}>
+        User Logout
+      </button>
+    </header>
 
-      <div className="job-post-page">
-        <header className="header">
-          <h1>Job Posts</h1>
-        </header>
+    <div className="button-container">
+      <button className="add-comments-button" onClick={handlePostJobButton}>
+        Post Job
+      </button>
 
-        <button className="green-button" onClick={handlePostJobButton}>
-          Post Job
-        </button>
+      {/* <button
+        className="btn btn-primary"
+        onClick={() => {
+          window.location.href = "/User-Profile";
+        }}
+      >
+        <span className="font-weight-bold">See Profile</span>
+      </button> */}
+    </div>
 
-        <button className="logout-button" onClick={handleUserLogOutButton}>
-            User Logout
-          </button>
+    <div className="posts-container">
+      {posts.map((post) => (
+        <JobPost key={post.id} post={post} />
+      ))}
+    </div>
+  </div>
+</main>
 
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            window.location.href = "/User-Profile";
-          }}
-        >
-          <span className="font-weight-bold">See Profile</span>
-        </button>
-
-        <div className="posts-container">
-          {posts.map((post) => (
-            <JobPost key={post.id} post={post} />
-          ))}
-        </div>
-      </div>
-    </main>
   );
 };
 

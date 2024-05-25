@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom"; // Import useHistory hook
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Navbar1 from "../components/Navbar1";
 
 function Example() {
-  
-  const [person, setPerson] = useState(null); // State to hold the person's data
+  const [person, setPerson] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
-    // Fetch data from backend API when the component mounts
     fetchData();
   }, []);
 
@@ -30,7 +29,6 @@ function Example() {
 
       if (response.status === 200) {
         const data = response.data;
-        // Assuming the backend returns only one person's profile
         setPerson(data);
       } else {
         console.error("Unexpected response status:", response.status);
@@ -46,10 +44,8 @@ function Example() {
     }
   };
 
-
   const deleteAccount = async () => {
     try {
-      
       const token = localStorage.getItem("tokenUser");
 
       if (!token) {
@@ -81,55 +77,72 @@ function Example() {
     }
   };
 
-
   const handleUserDeleteAccButton = () => {
     deleteAccount();
   };
 
-  // Render loading state if person data is not yet fetched
   if (!person) {
     return <div>Loading...</div>;
   }
 
+  const dummyPic = "https://via.placeholder.com/150";
+
   return (
-   
-<main>
-      <div className="dark:bg-gray-800">
-        <div className="flex justify-between gap-x-6 py-5 dark:text-white">
-          <div className="flex min-w-0 gap-x-4">
-            <img
-              className="w-10 h-10 rounded-full"
-              src={`data:image/jpeg;base64,${person.profilePic}`}
-              alt="Profile Image"
-            />
-            <div className="min-w-0 flex-auto">
-              <p className="text-sm font-semibold leading-6 text-gray-900">
-                {person.name}
-              </p>
-              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                {person.email}
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="small mb-0">
-        {/* <i className="bi bi-people-fill"></i> Edit profile{" "} */}
-        <Link to="/edit-profile" className="font-weight-bold base-color">
-          <button>Update Profile</button>
-        </Link>
+    <main className="bg-gray-50 dark:bg-gray-900 min-h-screen py-8">
+      <Navbar1 />
+      <div className="mt-8 flex justify-center items-center flex-col md:flex-row">
+        <img
+          className="w-36 h-36 md:w-72 md:h-72 rounded-full object-cover mr-6"
+          src={
+            person.profilePic
+              ? `data:image/jpeg;base64,${person.profilePic}`
+              : dummyPic
+          }
+          alt="Profile Image"
+        />
       </div>
 
+      <div >
+        <center>
+          <p className="text-lg text-gray-600">{person.name}</p>
+        </center>
+      </div>
+
+      <div>
+        <center>
+          <p className="text-lg text-gray-600">{person.email}</p>
+        </center>
+      </div>
+
+      <div>
+        <center>
+          <p className="text-lg text-gray-600">{person.profDetails}</p>
+        </center>
+      </div>
+
+      <div>
+        <center>
+          <p className="text-lg text-gray-600">{person.studentId}</p>
+        </center>
+      </div>
+
+      <div className="flex justify-center mt-4 space-x-4">
+        <Link to="/edit-profile">
+          <button className="px-1 py-2 bg-darkblue-500 text-white rounded-lg hover:bg-darkblue-600 transition">
+            Update Profile
+          </button>
+        </Link>
+       
+          <center>
         <button
-          className="logout-button"
+          className="px-1 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
           onClick={handleUserDeleteAccButton}
         >
           Delete Account
         </button>
+        </center>
       </div>
     </main>
-
   );
 }
 
