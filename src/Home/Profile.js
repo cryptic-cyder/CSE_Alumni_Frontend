@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar1 from "../components/Navbar1";
 
+
 function Example() {
   const [person, setPerson] = useState(null);
   const history = useHistory();
@@ -11,6 +12,10 @@ function Example() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const MyJobPosts = async () => {
+    history.push("/my-job-posts");
+  };
 
   const fetchData = async () => {
     try {
@@ -30,6 +35,40 @@ function Example() {
       if (response.status === 200) {
         const data = response.data;
         setPerson(data);
+      } else {
+        console.error("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.error("Unauthorized access. Please log in again.");
+        alert("Token is invalid. Please log in again.");
+        history.push("/alumni-login");
+      } else {
+        console.error("Error fetching pending requests:", error);
+      }
+    }
+  };
+
+  const userLogOut = async () => {
+    try {
+      const token = localStorage.getItem("tokenUser");
+
+      if (!token) {
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
+      }
+
+      const requestBody = { token };
+
+      const response = await axios.post(
+        "http://localhost:8181/UserLogout",
+        requestBody
+      );
+
+      if (response.status === 200) {
+        alert("Successfully logout");
+        localStorage.removeItem("tokenUser");
+        history.push("/alumni-login");
       } else {
         console.error("Unexpected response status:", response.status);
       }
@@ -77,10 +116,6 @@ function Example() {
     }
   };
 
-  const handleUserDeleteAccButton = () => {
-    deleteAccount();
-  };
-
   if (!person) {
     return <div>Loading...</div>;
   }
@@ -89,60 +124,131 @@ function Example() {
 
   return (
     <main className="bg-gray-50 dark:bg-gray-900 min-h-screen py-8">
-      <Navbar1 />
-      <div className="mt-8 flex justify-center items-center flex-col md:flex-row">
-        <img
-          className="w-36 h-36 md:w-72 md:h-72 rounded-full object-cover mr-6"
-          src={
-            person.profilePic
-              ? `data:image/jpeg;base64,${person.profilePic}`
-              : dummyPic
+  {/* Navbar1 */}
+  <Navbar1 />
+
+  {/* Buttons Section */}
+  <div className="flex justify-center mb-8">
+    <div className="flex">
+      {/* My Posts Button */}
+      <button
+        style={{
+          backgroundColor: "green",
+          border: "none",
+          borderRadius: "5px",
+          color: "white",
+          padding: "10px 20px",
+          cursor: "pointer",
+          fontSize: "16px",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          margin: "0",
+        }}
+        onClick={MyJobPosts}
+      >
+        My Posts
+      </button>
+
+      {/* Update Profile Button */}
+      <button
+        style={{
+          backgroundColor: "blue",
+          border: "none",
+          borderRadius: "5px",
+          color: "white",
+          padding: "10px 20px",
+          cursor: "pointer",
+          fontSize: "16px",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          margin: "0",
+        }}
+        onClick={() => {
+          window.location.href = "/edit-profile";
+        }}
+      >
+        Update Profile
+      </button>
+
+      {/* User Logout Button */}
+      <button
+        style={{
+          backgroundColor: "green",
+          border: "none",
+          borderRadius: "5px",
+          color: "white",
+          padding: "10px 20px",
+          cursor: "pointer",
+          fontSize: "16px",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          margin: "0",
+        }}
+        onClick={userLogOut}
+      >
+        User Logout
+      </button>
+
+      {/* Delete Account Button */}
+      <button
+        style={{
+          backgroundColor: "red",
+          border: "none",
+          borderRadius: "5px",
+          color: "white",
+          padding: "10px 20px",
+          cursor: "pointer",
+          fontSize: "16px",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          margin: "0",
+        }}
+        onClick={() => {
+          const confirmDelete = window.confirm(
+            "Are you sure you want to delete your account?"
+          );
+          if (confirmDelete) {
+            deleteAccount();
           }
+        }}
+      >
+        Delete Profile
+      </button>
+    </div>
+  </div>
+
+  {/* Profile Picture */}
+  <div className="container mx-auto mb-1">
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-2">
+      <div className="flex justify-center mb-4">
+        <img
+          className="w-36 h-36 md:w-72 md:h-72 rounded-full object-cover"
+          src={person.profilePic ? `data:image/jpeg;base64,${person.profilePic}` : dummyPic}
           alt="Profile Image"
         />
       </div>
+    </div>
+  </div>
 
-      <div >
-        <center>
-          <p className="text-lg text-gray-600">{person.name}</p>
-        </center>
-      </div>
-
+  {/* Profile Information */}
+  <div className="container mx-auto mb-1">
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-2">
+      <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
       <div>
-        <center>
-          <p className="text-lg text-gray-600">{person.email}</p>
-        </center>
+        <p className="text-gray-600 mb-2">
+          <span className="font-bold">Name:</span> {person.name}
+        </p>
+        <p className="text-gray-600 mb-2">
+          <span className="font-bold">Email:</span> {person.email}
+        </p>
+        <p className="text-gray-600 mb-2">
+          <span className="font-bold">Profession Details:</span>{" "}
+          {person.profDetails}
+        </p>
+        <p className="text-gray-600 mb-2">
+          <span className="font-bold">Student ID:</span> {person.studentId}
+        </p>
       </div>
+    </div>
+  </div>
+</main>
 
-      <div>
-        <center>
-          <p className="text-lg text-gray-600">{person.profDetails}</p>
-        </center>
-      </div>
-
-      <div>
-        <center>
-          <p className="text-lg text-gray-600">{person.studentId}</p>
-        </center>
-      </div>
-
-      <div className="flex justify-center mt-4 space-x-4">
-        <Link to="/edit-profile">
-          <button className="px-1 py-2 bg-darkblue-500 text-white rounded-lg hover:bg-darkblue-600 transition">
-            Update Profile
-          </button>
-        </Link>
-       
-          <center>
-        <button
-          className="px-1 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-          onClick={handleUserDeleteAccButton}
-        >
-          Delete Account
-        </button>
-        </center>
-      </div>
-    </main>
   );
 }
 

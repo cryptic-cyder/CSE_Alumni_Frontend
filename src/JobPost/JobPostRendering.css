@@ -47,3 +47,68 @@
     margin-top: 10px;
   }
   
+
+
+
+
+
+
+  .comment-container {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #dcdcdc; /* Slightly deeper shade */
+    border-radius: 8px;
+  }
+  
+  .comment {
+    margin-bottom: 5px;
+  }
+  
+  .resume {
+    margin-top: 5px;
+  }
+  
+  .comment-textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+  }
+  
+  .comment-file-input {
+    margin-bottom: 5px;
+  }
+  
+ 
+  
+  
+  
+  .comments-button:hover,
+  .add-comments-button:hover,
+  .submit-comment-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-comment {
+    margin-top: 10px;
+  }
+  
+
+
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-picture img {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%; /* Makes the image round */
+    margin-right: 10px; /* Adjust spacing as needed */
+  }
+  
+  .profile-info p {
+    font-size: 16px;
+    margin: 0;
+  }
+  

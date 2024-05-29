@@ -49,22 +49,19 @@ const AlumniCard = ({ alumni }) => {
   const history = useHistory();
 
   const handleClick = async () => {
-    // const token = localStorage.getItem("token");
-
-    // if (!token) {
-    //   alert("Token not found...You have not logged in...Please log in first");
-    //   history.push("/admin-login"); 
-    // }
 
     try {
-      //const requestBody = { token };
+     
       const response = await axios.post(
         `http://localhost:8181/fetchOthers/${alumni.email}`
       
       );
 
       if (response.status === 200) {
-        history.push("/PendingRequestsPage");
+        history.push({
+          pathname: "/othersPerson",
+          state: { person: response.data }
+        });
       } 
       else if(response.status===401){
         alert("Token is invalid...Please log in again.");

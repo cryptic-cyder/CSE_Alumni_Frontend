@@ -73,11 +73,9 @@ const LoginForm = () => {
         }
         alert("Account is waiting for approval");
         history.push("/");
-      }
-      else if(response.status===302){
+      } else if (response.status === 302) {
         alert("There is already an account with this email...Try another one");
-      }
-      else {
+      } else {
         console.error("Registration failed");
       }
     } catch (error) {
@@ -86,9 +84,11 @@ const LoginForm = () => {
   };
 
   return (
-  
     <main className="login-container">
-     
+      <div style={{ width: "100%", position: "absolute", top: 0 }}>
+        <Navbar1 />
+      </div>
+
       <div className="login-content">
         {/* <div className="logo-container">
           <img
@@ -121,7 +121,6 @@ const LoginForm = () => {
               value={formData.userEmail}
               onChange={handleChange}
               placeholder="Email"
-              
             />
           </div>
 
@@ -210,18 +209,20 @@ const LoginForm = () => {
           </div>
         </form>
 
-          <p> <center>
+        <p>
+          {" "}
+          <center>
             Already have an alumni account?{" "}
             <a href="/alumni-login">Login Here</a>
-            </center>
-          </p>
+          </center>
+        </p>
 
-          <p><center>
+        <p>
+          <center>
             Visit CUET <a href="https://www.cuet.ac.bd/">Official Website</a>
-            </center>
-          </p>
-        </div>
-     
+          </center>
+        </p>
+      </div>
     </main>
   );
 };

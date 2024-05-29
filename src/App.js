@@ -17,10 +17,18 @@ import JobPost from "./JobPost/JobPostArena";
 
 import PostingJobRedirect from "./JobPost/PostJobPage";
 
+import OthersProfile from "./Home/Profile-Others";
+
+import UserJobPost from "./JobPost/UserJobPost";
+
+
 function App() {
   return (
+
+    
     <Router>
       <div>
+        
         <Switch>
           <Route exact path="/" component={AlumniDashboard} />
           <Route path="/alumni-login" component={MyLogin} />
@@ -35,7 +43,11 @@ function App() {
           <Route path="/Job-Arena" component={JobPost} />
           
           <Route path="/PostingJob" component={PostingJobRedirect} />
-          
+
+          <Route path="/othersPerson" component={OthersProfile}></Route>
+
+          <Route path="/my-job-posts" component={UserJobPost}></Route>
+
           {/* Add more routes here if needed */}
         </Switch>
       </div>

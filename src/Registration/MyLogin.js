@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./MyLogin.css";
 import axios from "axios";
+import Navbar1 from "../components/Navbar1";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -65,71 +66,56 @@ function LoginForm() {
   };
 
   return (
-  
-
-    <main className="flex justify-center items-center min-h-screen">
-  <div className="bg-gray-100 rounded-lg shadow-md w-full max-w-md">
-    <div className="p-4">
-      <h6 className="font-bold text-center text-lg mb-4">Alumni Login</h6>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          type="hidden"
-          name="_token"
-          value="F5pwaZ8hSNWvzWto3DXEeUrUk3qTaZBEUq9jzyhC"
-        />
-        <div>
-          <label htmlFor="adminEmail" className="block"></label>
-          <input
-            type="text"
-            id="adminEmail"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="form-input w-full"
-            placeholder="Enter Email"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="adminPassword" className="block"></label>
-          <input
-            type="password"
-            id="adminPassword"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="form-input w-full"
-            placeholder="Enter Password"
-            required
-          />
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-          >
-            LOGIN
-          </button>
-        </div>
-        <div className="text-center">
-          <p className="text-sm mb-1">
-            <i className="bi bi-people-fill"></i> Not registered yet as alumni?{" "}
-            <a
-              href="/Alumni-registration"
-              className="font-bold text-blue-500"
-            >
-              Register Here
-            </a>
-          </p>
-        </div>
-      </form>
-    </div>
-  </div>
-</main>
-
-
-
-
+    <main className="login-container">
+      <div style={{ width: '100%', position: 'absolute', top: 0 }}>
+        <Navbar1 />
+      </div>
+      <div className="login-content" style={{ marginTop: '60px' }}>
+        <h6 className="form-title">Alumni Login</h6>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <input type="hidden" name="_token" value="F5pwaZ8hSNWvzWto3DXEeUrUk3qTaZBEUq9jzyhC" />
+          <div className="form-group">
+            <label htmlFor="adminEmail" className="block"></label>
+            <input
+              type="text"
+              id="adminEmail"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Enter Email"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="adminPassword" className="block"></label>
+            <input
+              type="password"
+              id="adminPassword"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn-primary">
+              LOGIN
+            </button>
+          </div>
+          <div className="additional-links">
+            <p>
+              <i className="bi bi-people-fill"></i> Not registered yet as alumni?{' '}
+              <a href="/Alumni-registration" className="contact-info">
+                Register Here
+              </a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
 

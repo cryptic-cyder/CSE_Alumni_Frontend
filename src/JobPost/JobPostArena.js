@@ -9,40 +9,6 @@ const UserAuth = () => {
   // Capitalized component name
   const history = useHistory();
 
-  const userLogOut = async () => {
-    try {
-      const token = localStorage.getItem("tokenUser");
-
-      if (!token) {
-        alert("Token not found...You have not logged in...Please log in first");
-        history.push("/alumni-login");
-      }
-
-      const requestBody = { token };
-
-      const response = await axios.post(
-        "http://localhost:8181/UserLogout",
-        requestBody
-      );
-
-      if (response.status === 200) {
-        alert("Successfully logout");
-        localStorage.removeItem("tokenUser");
-        history.push("/alumni-login");
-      } else {
-        console.error("Unexpected response status:", response.status);
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        console.error("Unauthorized access. Please log in again.");
-        alert("Token is invalid. Please log in again.");
-        history.push("/alumni-login");
-      } else {
-        console.error("Error fetching pending requests:", error);
-      }
-    }
-  };
-
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -53,49 +19,110 @@ const UserAuth = () => {
       .catch((error) => console.error("Error fetching posts:", error));
   }, []);
 
-  const handleUserLogOutButton = () => {
-    userLogOut();
-  };
-
   const handlePostJobButton = () => {
     history.push("/PostingJob");
   };
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+  const [isSearching, setIsSearching] = useState(false);
+
+  const handleSearch = async () => {
+    try {
+      const token = localStorage.getItem("tokenUser");
+
+      if (!token) {
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
+        return;
+      }
+
+      const requestBody = {
+        searchContent: searchQuery,
+      };
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+      };
+
+      const response = await axios.post(
+        "http://localhost:8181/search",
+        requestBody,
+        config
+      );
+
+      const searchResults = response.data;
+
+      if (response.status === 404) {
+        setFilteredPosts([]);
+        //setError("No matching jobs found.");
+      } else {
+        setFilteredPosts(searchResults);
+        //setError(null); // Reset error if search is successful
+      }
+
+      setIsSearching(true);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setFilteredPosts([]);
+        //setError("No matching jobs found.");
+      } else {
+        console.error("Error fetching data:", error);
+        //setError("An error occurred while searching for jobs.");
+      }
+      setIsSearching(true);
+    }
+  };
+
   return (
     <main>
-  <Navbar1 />
+      <Navbar1 />
 
-  <div className="job-post-page">
-    <header className="header">
-      <h1><center>Job Posts</center></h1>
-      <button className="red-button" onClick={handleUserLogOutButton}>
-        User Logout
-      </button>
-    </header>
+      <div className="job-post-page">
+        <header className="header">
+          <div className="search-bar-container">
+            <input
+              type="text"
+              className="search-bar"
+              placeholder="Search jobs..."
+              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchQuery}
+            />
+            <button className="search-button" onClick={handleSearch}>
+              Search
+            </button>
+          </div>
+        </header>
 
-    <div className="button-container">
-      <button className="add-comments-button" onClick={handlePostJobButton}>
-        Post Job
-      </button>
+        <div
+          className="button-container"
+          style={{ display: "flex", justifyContent: "flex-start" }}
+        >
+          <button
+            className="add-comments-button"
+            onClick={handlePostJobButton}
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              padding: "10px 20px",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "18px",
+            }}
+          >
+            Post Job
+          </button>
+        </div>
 
-      {/* <button
-        className="btn btn-primary"
-        onClick={() => {
-          window.location.href = "/User-Profile";
-        }}
-      >
-        <span className="font-weight-bold">See Profile</span>
-      </button> */}
-    </div>
-
-    <div className="posts-container">
-      {posts.map((post) => (
-        <JobPost key={post.id} post={post} />
-      ))}
-    </div>
-  </div>
-</main>
-
+        <div className="posts-container">
+          {isSearching
+            ? filteredPosts.map((post) => <JobPost key={post.id} post={post} />)
+            : posts.map((post) => <JobPost key={post.id} post={post} />)}
+        </div>
+      </div>
+    </main>
   );
 };
 
