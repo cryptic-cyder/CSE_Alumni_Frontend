@@ -213,13 +213,13 @@ const LoginForm = () => {
           {" "}
           <center>
             Already have an alumni account?{" "}
-            <a href="/alumni-login">Login Here</a>
+            <a href="/alumni-login" className="contact-info">Login Here</a>
           </center>
         </p>
 
         <p>
           <center>
-            Visit CUET <a href="https://www.cuet.ac.bd/">Official Website</a>
+            Visit CUET <a href="https://www.cuet.ac.bd/" className="contact-info">Official Website</a>
           </center>
         </p>
       </div>

@@ -10,22 +10,30 @@ const NavbarContainer = styled.nav`
   color: white;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
+  align-items: center; /* Align items vertically */
+  padding: 2rem;
+  width: 100%;
+  height: 100px;
 `;
 
-const Logo = styled.h1`
+const Logo = styled.div`
   font-size: 1.5rem;
+  img {
+    height: 90px; /* Adjust height as needed */
+    width: 100px
+  }
 `;
 
 const NavLinks = styled.ul`
   list-style-type: none;
   display: flex;
-  align-items: center;
+  align-items: center; /* Align items vertically */
+  padding: 0;
+  margin: 0;
 `;
 
 const NavLinkItem = styled.li`
-  margin-left: 1rem;
+  margin-left: 1rem; /* Adjust spacing between navigation links */
 `;
 
 const NavLink = styled(Link)`
@@ -37,6 +45,13 @@ const NavLink = styled(Link)`
     color: lightgray;
   }
 `;
+
+const LogoContainer = styled.div`
+  margin-left: auto; /* Push the logo to the right */
+`;
+
+
+
 
 const Navbar1 = () => {
 
@@ -142,7 +157,9 @@ const Navbar1 = () => {
 
   return (
     <NavbarContainer>
-      <Logo></Logo>
+      <Logo>
+        <img src="https://th.bing.com/th/id/OIP.GlHQGcsqpWImTtlFvzk3DQAAAA?rs=1&pid=ImgDetMain" alt="Logo" />
+      </Logo>
       <NavLinks>
         <NavLinkItem>
           <NavLink to="/">Home</NavLink>

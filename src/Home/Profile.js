@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar1 from "../components/Navbar1";
 
-
 function Example() {
   const [person, setPerson] = useState(null);
   const history = useHistory();
@@ -123,132 +122,135 @@ function Example() {
   const dummyPic = "https://via.placeholder.com/150";
 
   return (
+
+    
     <main className="bg-gray-50 dark:bg-gray-900 min-h-screen py-8">
-  {/* Navbar1 */}
-  <Navbar1 />
+      <Navbar1 />
 
-  {/* Buttons Section */}
-  <div className="flex justify-center mb-8">
-    <div className="flex">
-      {/* My Posts Button */}
-      <button
-        style={{
-          backgroundColor: "green",
-          border: "none",
-          borderRadius: "5px",
-          color: "white",
-          padding: "10px 20px",
-          cursor: "pointer",
-          fontSize: "16px",
-          transition: "transform 0.2s, box-shadow 0.2s",
-          margin: "0",
-        }}
-        onClick={MyJobPosts}
-      >
-        My Posts
-      </button>
+      <div className="flex justify-center mb-8">
+        <div className="flex">
+          {/* My Posts Button */}
+          <button
+            style={{
+              backgroundColor: "green",
+              border: "none",
+              borderRadius: "5px",
+              color: "white",
+              padding: "10px 20px",
+              cursor: "pointer",
+              fontSize: "16px",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              margin: "0",
+            }}
+            onClick={MyJobPosts}
+          >
+            My Posts
+          </button>
 
-      {/* Update Profile Button */}
-      <button
-        style={{
-          backgroundColor: "blue",
-          border: "none",
-          borderRadius: "5px",
-          color: "white",
-          padding: "10px 20px",
-          cursor: "pointer",
-          fontSize: "16px",
-          transition: "transform 0.2s, box-shadow 0.2s",
-          margin: "0",
-        }}
-        onClick={() => {
-          window.location.href = "/edit-profile";
-        }}
-      >
-        Update Profile
-      </button>
+          {/* Update Profile Button */}
+          <button
+            style={{
+              backgroundColor: "blue",
+              border: "none",
+              borderRadius: "5px",
+              color: "white",
+              padding: "10px 20px",
+              cursor: "pointer",
+              fontSize: "16px",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              margin: "0",
+            }}
+            onClick={() => {
+              window.location.href = "/edit-profile";
+            }}
+          >
+            Update Profile
+          </button>
 
-      {/* User Logout Button */}
-      <button
-        style={{
-          backgroundColor: "green",
-          border: "none",
-          borderRadius: "5px",
-          color: "white",
-          padding: "10px 20px",
-          cursor: "pointer",
-          fontSize: "16px",
-          transition: "transform 0.2s, box-shadow 0.2s",
-          margin: "0",
-        }}
-        onClick={userLogOut}
-      >
-        User Logout
-      </button>
+          {/* User Logout Button */}
+          <button
+            style={{
+              backgroundColor: "green",
+              border: "none",
+              borderRadius: "5px",
+              color: "white",
+              padding: "10px 20px",
+              cursor: "pointer",
+              fontSize: "16px",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              margin: "0",
+            }}
+            onClick={userLogOut}
+          >
+            User Logout
+          </button>
 
-      {/* Delete Account Button */}
-      <button
-        style={{
-          backgroundColor: "red",
-          border: "none",
-          borderRadius: "5px",
-          color: "white",
-          padding: "10px 20px",
-          cursor: "pointer",
-          fontSize: "16px",
-          transition: "transform 0.2s, box-shadow 0.2s",
-          margin: "0",
-        }}
-        onClick={() => {
-          const confirmDelete = window.confirm(
-            "Are you sure you want to delete your account?"
-          );
-          if (confirmDelete) {
-            deleteAccount();
-          }
-        }}
-      >
-        Delete Profile
-      </button>
-    </div>
-  </div>
-
-  {/* Profile Picture */}
-  <div className="container mx-auto mb-1">
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-2">
-      <div className="flex justify-center mb-4">
-        <img
-          className="w-36 h-36 md:w-72 md:h-72 rounded-full object-cover"
-          src={person.profilePic ? `data:image/jpeg;base64,${person.profilePic}` : dummyPic}
-          alt="Profile Image"
-        />
+          {/* Delete Account Button */}
+          <button
+            style={{
+              backgroundColor: "red",
+              border: "none",
+              borderRadius: "5px",
+              color: "white",
+              padding: "10px 20px",
+              cursor: "pointer",
+              fontSize: "16px",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              margin: "0",
+            }}
+            onClick={() => {
+              const confirmDelete = window.confirm(
+                "Are you sure you want to delete your account?"
+              );
+              if (confirmDelete) {
+                deleteAccount();
+              }
+            }}
+          >
+            Delete Profile
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
 
-  {/* Profile Information */}
-  <div className="container mx-auto mb-1">
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-2">
-      <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
-      <div>
-        <p className="text-gray-600 mb-2">
-          <span className="font-bold">Name:</span> {person.name}
-        </p>
-        <p className="text-gray-600 mb-2">
-          <span className="font-bold">Email:</span> {person.email}
-        </p>
-        <p className="text-gray-600 mb-2">
-          <span className="font-bold">Profession Details:</span>{" "}
-          {person.profDetails}
-        </p>
-        <p className="text-gray-600 mb-2">
-          <span className="font-bold">Student ID:</span> {person.studentId}
-        </p>
+      {/* Profile Picture */}
+      <div className="container mx-auto mb-1">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-2">
+          <div className="flex justify-center mb-4">
+            <img
+              className="w-36 h-36 md:w-72 md:h-72 rounded-full object-cover"
+              src={
+                person.profilePic
+                  ? `data:image/jpeg;base64,${person.profilePic}`
+                  : dummyPic
+              }
+              alt="Profile Image"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</main>
 
+      {/* Profile Information */}
+      <div className="container mx-auto mb-1">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-2">
+          <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
+          <div>
+            <p className="text-gray-600 mb-2">
+              <span className="font-bold">Name:</span> {person.name}
+            </p>
+            <p className="text-gray-600 mb-2">
+              <span className="font-bold">Email:</span> {person.email}
+            </p>
+            <p className="text-gray-600 mb-2">
+              <span className="font-bold">Profession Details:</span>{" "}
+              {person.profDetails}
+            </p>
+            <p className="text-gray-600 mb-2">
+              <span className="font-bold">Student ID:</span> {person.studentId}
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
 

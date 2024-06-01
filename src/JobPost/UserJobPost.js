@@ -50,6 +50,7 @@ const MyJobPostsPage = () => {
   return (
     <div>
       <Navbar1/>
+      <h1><b><center>My Posts</center></b></h1>
       {posts.map((post) => (
         <JobPost key={post.id} post={post} /> // Render the JobPost component for each post
       ))}

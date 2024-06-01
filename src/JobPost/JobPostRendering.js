@@ -182,7 +182,7 @@ const JobPost = ({ post }) => {
             key={index}
             src={`data:image/jpeg;base64,${image}`}
             alt={`Job post ${post.id}`}
-            style={{ width: "300px", height: "200px", margin: "5px" }} // Adjust width and margin as needed
+            style={{ width: "200px", height: "120px", margin: "5px" }} // Adjust width and margin as needed
           />
         ))}
       </div>
