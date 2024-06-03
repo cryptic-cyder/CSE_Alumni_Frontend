@@ -6,80 +6,52 @@ import JobPost from "./JobPostRendering";
 import Navbar1 from "../components/Navbar1";
 
 const UserAuth = () => {
-  // Capitalized component name
   const history = useHistory();
 
   const [posts, setPosts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     // Fetch posts from backend
-    fetch("http://localhost:8181/fetch/allJobPost")
-      .then((response) => response.json())
-      .then((data) => setPosts(data))
-      .catch((error) => console.error("Error fetching posts:", error));
+    fetchPosts();
   }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get("http://localhost:8181/fetch/allJobPost");
+      setPosts(response.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
 
   const handlePostJobButton = () => {
     history.push("/PostingJob");
   };
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState(posts);
-  const [isSearching, setIsSearching] = useState(false);
-
   const handleSearch = async () => {
     try {
-      const token = localStorage.getItem("tokenUser");
-
-      if (!token) {
-        alert("Token not found...You have not logged in...Please log in first");
-        history.push("/alumni-login");
-        return;
-      }
-
-      const requestBody = {
-        searchContent: searchQuery,
-      };
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
-        },
-      };
-
       const response = await axios.post(
         "http://localhost:8181/search",
-        requestBody,
-        config
+        { searchContent: searchQuery }
       );
 
-      const searchResults = response.data;
-
-      if (response.status === 404) {
-        setFilteredPosts([]);
-        //setError("No matching jobs found.");
-      } else {
-        setFilteredPosts(searchResults);
-        //setError(null); // Reset error if search is successful
-      }
-
+      setFilteredPosts(response.data);
       setIsSearching(true);
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        setFilteredPosts([]);
-        //setError("No matching jobs found.");
-      } else {
-        console.error("Error fetching data:", error);
-        //setError("An error occurred while searching for jobs.");
-      }
-      setIsSearching(true);
+      console.error("Error searching posts:", error);
     }
   };
+
+
+  const sortedPosts = [...posts].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+
 
   return (
     <main>
       <Navbar1 />
-
       <div className="job-post-page">
         <header className="header">
           <div className="search-bar-container">
@@ -95,31 +67,18 @@ const UserAuth = () => {
             </button>
           </div>
         </header>
-
-        <div
-          className="button-container"
-          style={{ display: "flex", justifyContent: "flex-start" }}
-        >
+        <div className="button-container">
           <button
             className="add-comments-button"
             onClick={handlePostJobButton}
-            style={{
-              backgroundColor: "green",
-              color: "white",
-              padding: "10px 20px",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "18px",
-            }}
           >
             Post Job
           </button>
         </div>
-
         <div className="posts-container">
           {isSearching
             ? filteredPosts.map((post) => <JobPost key={post.id} post={post} />)
-            : posts.map((post) => <JobPost key={post.id} post={post} />)}
+            : sortedPosts.map((post) => <JobPost key={post.id} post={post} />)}
         </div>
       </div>
     </main>
