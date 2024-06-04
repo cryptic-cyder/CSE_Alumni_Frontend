@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import JobPost from "./JobPostRendering";
 import Navbar1 from "../components/Navbar1";
+import Footer from "../components/Footer";
 
 const UserAuth = () => {
   const history = useHistory();
@@ -20,7 +21,9 @@ const UserAuth = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8181/fetch/allJobPost");
+      const response = await axios.get(
+        "http://localhost:8181/fetch/allJobPost"
+      );
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -33,10 +36,9 @@ const UserAuth = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8181/search",
-        { searchContent: searchQuery }
-      );
+      const response = await axios.post("http://localhost:8181/search", {
+        searchContent: searchQuery,
+      });
 
       setFilteredPosts(response.data);
       setIsSearching(true);
@@ -45,9 +47,9 @@ const UserAuth = () => {
     }
   };
 
-
-  const sortedPosts = [...posts].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
-
+  const sortedPosts = [...posts].sort(
+    (a, b) => new Date(b.postedAt) - new Date(a.postedAt)
+  );
 
   return (
     <main>
@@ -68,11 +70,8 @@ const UserAuth = () => {
           </div>
         </header>
         <div className="button-container">
-          <button
-            className="add-comments-button"
-            onClick={handlePostJobButton}
-          >
-            Post Job
+          <button className="add-comments-button" onClick={handlePostJobButton}>
+            Post
           </button>
         </div>
         <div className="posts-container">
@@ -81,6 +80,7 @@ const UserAuth = () => {
             : sortedPosts.map((post) => <JobPost key={post.id} post={post} />)}
         </div>
       </div>
+      <Footer />
     </main>
   );
 };

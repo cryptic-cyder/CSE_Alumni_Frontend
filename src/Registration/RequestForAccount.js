@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./MyLogin.css"; // Import your custom CSS for styling
 import Navbar1 from "../components/Navbar1";
+//import Footer from "../components/Footer";
 
 const LoginForm = () => {
   const history = useHistory();
@@ -90,53 +91,54 @@ const LoginForm = () => {
       </div>
 
       <div className="login-content">
-        {/* <div className="logo-container">
+        <div className="registration-form-wrapper">
+          {/* <div className="logo-container">
           <img
             src="https://www.tbsnews.net/sites/default/files/styles/author/public/organization/logo/cuet.png"
             className="logo"
             alt="logo"
           />
         </div> */}
-        <h4 className="form-title">
-          <b>Alumni Registration</b>
-        </h4>
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              name="userName"
-              value={formData.userName}
-              onChange={handleChange}
-              placeholder="Full Name"
-              required
-            />
-          </div>
+          <h4 className="form-title">
+            <b>Alumni Registration</b>
+          </h4>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                name="userName"
+                value={formData.userName}
+                onChange={handleChange}
+                placeholder="Full Name"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              name="userEmail"
-              value={formData.userEmail}
-              onChange={handleChange}
-              placeholder="Email"
-            />
-          </div>
+            <div className="form-group">
+              <input
+                type="email"
+                className="form-control"
+                name="userEmail"
+                value={formData.userEmail}
+                onChange={handleChange}
+                placeholder="Email"
+              />
+            </div>
 
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              name="passwordOfUser"
-              value={formData.passwordOfUser}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-            />
-          </div>
+            <div className="form-group">
+              <input
+                type="password"
+                className="form-control"
+                name="passwordOfUser"
+                value={formData.passwordOfUser}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+              />
+            </div>
 
-          {/* <div className="form-group">
+            {/* <div className="form-group">
             <b>Profile Picture</b>
             <input
               type="file"
@@ -147,7 +149,7 @@ const LoginForm = () => {
             />
           </div> */}
 
-          {/* <div className="form-group">
+            {/* <div className="form-group">
             <select
               className="form-control"
               name="graduationStatus"
@@ -189,40 +191,48 @@ const LoginForm = () => {
             </div>
           )} */}
 
-          <div className="form-group">
-            <b>Student ID card or PVC</b>
-            <input
-              type="file"
-              className="form-control"
-              name="identityPic"
-              onChange={handleChange}
-              accept="image/*"
-              placeholder="Identity Picture"
-              required
-            />
-          </div>
+            <div className="form-group">
+              <b>Student ID card or PVC</b>
+              <input
+                type="file"
+                className="form-control"
+                name="identityPic"
+                onChange={handleChange}
+                accept="image/*"
+                placeholder="Identity Picture"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary btn-block">
-              Register Now
-            </button>
-          </div>
-        </form>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary btn-block">
+                Register Now
+              </button>
+            </div>
+          </form>
 
-        <p>
-          {" "}
-          <center>
-            Already have an alumni account?{" "}
-            <a href="/alumni-login" className="contact-info">Login Here</a>
-          </center>
-        </p>
+          <p>
+            {" "}
+            <center>
+              Already have an alumni account?{" "}
+              <a href="/alumni-login" className="contact-info">
+                Login Here
+              </a>
+            </center>
+          </p>
 
-        <p>
-          <center>
-            Visit CUET <a href="https://www.cuet.ac.bd/" className="contact-info">Official Website</a>
-          </center>
-        </p>
+          <p>
+            <center>
+              Visit CUET{" "}
+              <a href="https://www.cuet.ac.bd/" className="contact-info">
+                Official Website
+              </a>
+            </center>
+          </p>
+        </div>
       </div>
+
+     
     </main>
   );
 };

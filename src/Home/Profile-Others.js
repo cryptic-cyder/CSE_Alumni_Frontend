@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar1 from '../components/Navbar1';
-
+import Footer from '../components/Footer';
 
 const dummyPic = 'https://th.bing.com/th/id/OIP.rmim2jYzNpSCslo60INohQHaF9?rs=1&pid=ImgDetMain';
 
@@ -51,6 +51,7 @@ const PendingRequestsPage = () => {
           <p className="text-lg text-gray-600">{person.studentId}</p>
         </center>
       </div>
+      <Footer/>
     </main>
   );
 };

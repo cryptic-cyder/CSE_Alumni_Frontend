@@ -26,6 +26,8 @@ const AlumniList = () => {
       }
     };
 
+    
+   
     fetchAlumni();
   }, []);
 

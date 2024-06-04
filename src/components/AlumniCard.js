@@ -7,7 +7,7 @@ const Card = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #1e1e1e; /* Dark background */
+  background: #444444; /* Slightly lighter background */
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 1rem; /* Reduced padding */
@@ -19,6 +19,7 @@ const Card = styled.li`
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
 `;
+
 
 const CardImage = styled.img`
   border-radius: 50%;
@@ -40,6 +41,10 @@ const CardEmail = styled.p`
   color: #ccc; /* Light color for contrast */
   margin-bottom: 0.25rem; /* Reduced margin */
   text-align: center;
+`;
+
+const ClickableDiv = styled.div`
+  cursor: pointer;
 `;
 
 const dummyPic = 'https://th.bing.com/th/id/OIP.rmim2jYzNpSCslo60INohQHaF9?rs=1&pid=ImgDetMain';
@@ -78,7 +83,7 @@ const AlumniCard = ({ alumni }) => {
 
 
   return (
-    <div onClick={handleClick}>
+    <ClickableDiv onClick={handleClick}>
     <Card>
       <CardImage
         src={
@@ -91,7 +96,7 @@ const AlumniCard = ({ alumni }) => {
       <CardName>{alumni.name}</CardName>
       <CardEmail>{alumni.email}</CardEmail>
     </Card>
-    </div>
+    </ClickableDiv>
   );
 };
 

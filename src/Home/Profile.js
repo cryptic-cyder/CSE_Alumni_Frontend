@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar1 from "../components/Navbar1";
+import Footer from "../components/Footer";
 
 function Example() {
   const [person, setPerson] = useState(null);
@@ -250,6 +251,7 @@ function Example() {
           </div>
         </div>
       </div>
+      <Footer/>
     </main>
   );
 }

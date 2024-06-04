@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProfileEdit.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function LoginForm() {
   const history = useHistory();
@@ -234,6 +235,7 @@ function LoginForm() {
             </div>
           </form>
         </div>
+        <Footer/>
       </main>
     </main>
   );

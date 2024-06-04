@@ -217,15 +217,15 @@ const JobPost = ({ post }) => {
         </div>
       )}
 
-      <button className="comments-button" onClick={handleButtonClick}>
-        {showComments ? "Hide Comments" : "See Comments"}
+      <button className="comments-button"  onClick={handleButtonClick}>
+        {showComments ? "Comment" : "Comment"}
       </button>
 
       <button
         className="add-comments-button"
         onClick={() => setShowAddCommentForm(true)}
       >
-        Add Comments
+        Add one
       </button>
 
       {showAddCommentForm && (

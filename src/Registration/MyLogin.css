@@ -64,3 +64,13 @@
   font-weight: bold;
   color: #007bff;
 }
+
+.registration-form-wrapper {
+  margin-bottom: 2rem; /* Adjust the spacing between the registration form and the footer */
+}
+
+.footer-wrapper {
+  width: 100%;
+  position: relative;
+}
+

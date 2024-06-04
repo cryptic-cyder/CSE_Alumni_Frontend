@@ -1,28 +1,40 @@
 // src/components/Navbar1.js
 
-import React from 'react';
-import styled from 'styled-components';
-import { Link,useHistory } from 'react-router-dom'; // Import Link for routing
+import React from "react";
+import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom"; // Import Link for routing
 import axios from "axios";
 
 const NavbarContainer = styled.nav`
-  background-color: #320;
-  color: white;
+  background-color: #304b5b; /* Lighter deep ocean blue background */
+  color: #c8dce6; /* Lighter cyan text color */
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Align items vertically */
-  padding: 2rem;
+  align-items: center;
+  padding: 1rem 2rem;
   width: 100%;
-  height: 100px;
+  height: 80px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 `;
+
 
 const Logo = styled.div`
   font-size: 1.5rem;
   img {
-    height: 90px; /* Adjust height as needed */
-    width: 100px
+    height: 70px; /* Adjust height as needed */
+    width: 70px; /* Maintain aspect ratio */
   }
 `;
+
+
+const LogoText = styled.span`
+  margin-left: 17rem; /* Adjust spacing between logo and text */
+  font-weight: bold; /* Make text bold */
+  color: white; /* Set text color to white */
+  font-size: 2.2rem; /* Increase font size */
+`;
+
+
 
 const NavLinks = styled.ul`
   list-style-type: none;
@@ -46,15 +58,7 @@ const NavLink = styled(Link)`
   }
 `;
 
-const LogoContainer = styled.div`
-  margin-left: auto; /* Push the logo to the right */
-`;
-
-
-
-
 const Navbar1 = () => {
-
   const history = useHistory();
 
   const validateToken = async () => {
@@ -63,7 +67,6 @@ const Navbar1 = () => {
     if (!token) {
       alert("Token not found...You have not logged in...Please log in first");
       history.push("/alumni-login");
-      
     }
 
     try {
@@ -84,17 +87,14 @@ const Navbar1 = () => {
       alert("An error occurred while validating the token. Please try again.");
       history.push("/alumni-login");
     }
-
   };
-
-
 
   const validateAdmin = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
       alert("Token not found...You have not logged in...Please log in first");
-      history.push("/admin-login"); 
+      history.push("/admin-login");
     }
 
     try {
@@ -106,27 +106,23 @@ const Navbar1 = () => {
 
       if (response.status === 200) {
         history.push("/PendingRequestsPage");
-      } 
-      else {
+      } else {
         alert("Token is invalid...Please log in again.");
         history.push("/admin-login");
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error validating token:", error);
       alert("An error occurred while validating the token. Please try again.");
       history.push("/admin-login");
     }
   };
 
-
-
   const validateForProfile = async () => {
     const token = localStorage.getItem("tokenUser");
 
     if (!token) {
       alert("Token not found...You have not logged in...Please log in first");
-      history.push("/alumni-login"); 
+      history.push("/alumni-login");
     }
 
     try {
@@ -138,28 +134,31 @@ const Navbar1 = () => {
 
       if (response.status === 200) {
         history.push("/User-Profile");
-      } 
-      else {
+      } else {
         alert("Token is invalid...Please log in again.");
         history.push("/alumni-login");
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error validating token:", error);
       alert("An error occurred while validating the token. Please try again.");
       history.push("/alumni-login");
     }
   };
 
-
-
-
-
   return (
     <NavbarContainer>
+
+      
       <Logo>
-        <img src="https://th.bing.com/th/id/OIP.GlHQGcsqpWImTtlFvzk3DQAAAA?rs=1&pid=ImgDetMain" alt="Logo" />
+        <img
+          src="https://www.cuet.ac.bd/frontend/images/cuetlogo.png"
+          alt="Logo"
+          
+        />
+
+
       </Logo>
+      <LogoText>CUET CSE</LogoText>
       <NavLinks>
         <NavLinkItem>
           <NavLink to="/">Home</NavLink>
@@ -168,18 +167,24 @@ const Navbar1 = () => {
           <NavLink to="/Register">Register</NavLink>
         </NavLinkItem>
         <NavLinkItem>
-          <NavLink to="/Job-Arena" onClick={validateToken}>JobSection</NavLink>
+          <NavLink to="/Job-Arena" onClick={validateToken}>
+            JobSection
+          </NavLink>
         </NavLinkItem>
         <NavLinkItem>
-          <NavLink to="/Job-Arena" onClick={validateForProfile}>Profile</NavLink>
+          <NavLink to="/Job-Arena" onClick={validateForProfile}>
+            Profile
+          </NavLink>
         </NavLinkItem>
         <NavLinkItem>
-          <NavLink to="/admin-login" onClick={validateAdmin}>Admin</NavLink>
+          <NavLink to="/admin-login" onClick={validateAdmin}>
+            Admin
+          </NavLink>
         </NavLinkItem>
         <NavLinkItem>
           <NavLink to="/">About</NavLink>
         </NavLinkItem>
-       
+
         {/* Add more NavLinkItems for additional options */}
       </NavLinks>
     </NavbarContainer>
