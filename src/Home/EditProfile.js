@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./ProfileEdit.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import Footer from "../components/Footer";
+import Navbar1 from "../components/Navbar1";
+//import Footer from "../components/Footer";
 
 function LoginForm() {
   const history = useHistory();
@@ -111,12 +112,13 @@ function LoginForm() {
   };
 
   return (
-    <main>
-      <main className="login-container">
+    <main >
+      <Navbar1/>
+      <main className="login-container" style={{ paddingTop: "95px" }}>
         <div className="login-content">
-          <h4 className="form-title">
+          <h1 className="form-title">
             <b>Edit Profile</b>
-          </h4>
+          </h1>
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
@@ -235,7 +237,7 @@ function LoginForm() {
             </div>
           </form>
         </div>
-        <Footer/>
+        {/* <Footer/> */}
       </main>
     </main>
   );

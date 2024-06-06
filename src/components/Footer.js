@@ -16,7 +16,7 @@ const FooterContainer = styled.footer`
   flex-direction: column;
   align-items: center;
   padding: 0rem;
-  height: 155px;
+  height: 95px;
   width: 100%;
 `;
 
@@ -88,12 +88,11 @@ const Footer = () => {
         Technology. All rights reserved.
       </FooterText>
       <AddressText>
-        registrar@cuet.ac.bd
+        {/* registrar@cuet.ac.bd
         <br />
         +880-31-714946
-        <br />
-        Pahartoli, Raozan-4349
-        <br />
+        <br /> */}
+        Pahartoli, Raozan-4349,
         Chittagong, Bangladesh
       </AddressText>
     </FooterContainer>

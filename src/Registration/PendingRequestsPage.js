@@ -21,6 +21,13 @@ import axios from "axios";
 import Navbar1 from "../components/Navbar1";
 import styled from "styled-components";
 
+const HeroText = styled.h1`
+  font-size: 1.5rem; /* Adjust font size as needed */
+  font-weight: bold; /* Make text bold */
+  color: #2c3e50; /* Set text color */
+  /* Add any additional styles here */
+`;
+
 function AdminLogin() {
   const [pendingRequests, setPendingRequests] = useState([]); // Define pendingRequests state
   const [isButtonClicked, setIsButtonClicked] = useState(false); // Define isButtonClicked state
@@ -59,51 +66,51 @@ function AdminLogin() {
     }
   };
 
-  const adminLogOut = async () => {
-    try {
-      const token = localStorage.getItem("token");
+  // const adminLogOut = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
 
-      if (!token) {
-        alert("Token not found...Please log in first");
-        history.push("/admin-login");
-      }
+  //     if (!token) {
+  //       alert("Token not found...Please log in first");
+  //       history.push("/admin-login");
+  //     }
 
-      const requestBody = { token };
+  //     const requestBody = { token };
 
-      const response = await axios.post(
-        "http://localhost:8181/adminLogout",
-        requestBody
-      );
+  //     const response = await axios.post(
+  //       "http://localhost:8181/adminLogout",
+  //       requestBody
+  //     );
 
-      if (response.status === 200) {
-        alert("Successfully logout as admin");
-        localStorage.removeItem("token");
-        history.push("/admin-login");
-      } else {
-        console.error("Unexpected response status:", response.status);
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        console.error("Unauthorized access. Please log in again.");
-        alert("Token is invalid. Please log in again.");
-        history.push("/admin-login");
-      } else {
-        console.error("Error fetching pending requests:", error);
-      }
-    }
-  };
+  //     if (response.status === 200) {
+  //       alert("Successfully logout as admin");
+  //       localStorage.removeItem("token");
+  //       history.push("/admin-login");
+  //     } else {
+  //       console.error("Unexpected response status:", response.status);
+  //     }
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 401) {
+  //       console.error("Unauthorized access. Please log in again.");
+  //       alert("Token is invalid. Please log in again.");
+  //       history.push("/admin-login");
+  //     } else {
+  //       console.error("Error fetching pending requests:", error);
+  //     }
+  //   }
+  // };
 
-  const handleImageClick = () => {
-    history.push("/identityPicture");
-  };
+  // const handleImageClick = () => {
+  //   history.push("/identityPicture");
+  // };
 
   const handleButtonClick = () => {
     setIsButtonClicked(true);
   };
 
-  const handleAdminLogOutButton = () => {
-    adminLogOut();
-  };
+  // const handleAdminLogOutButton = () => {
+  //   adminLogOut();
+  // };
 
   const handleAcceptRequest = async (studentEmail) => {
     try {
@@ -182,12 +189,8 @@ function AdminLogin() {
   return (
     <main>
       <Navbar1 />
-      <h1>Admin Dashboard</h1>
-      <div className="admin-header">
-        <button className="logout-button" onClick={handleAdminLogOutButton}>
-          Admin Logout
-        </button>
-      </div>
+      <HeroText>Admin Dashboard</HeroText>
+      
       <div className="fetch-buttons-container">
         <button className="fetch-buttons" onClick={handleButtonClick}>
           Fetch Pending Requests

@@ -8,24 +8,19 @@ import Registration from "./Registration/RequestForAccount";
 import MyLogin from "./Registration/MyLogin"; // Import your login component
 import AdminLogin from "./Registration/AdminLogin";
 import PendingRequestsPage from "./Registration/PendingRequestsPage";
-
 import AlumniDashboard from "./Home/AlumniDashboard";
 import userProfile from "./Home/Profile";
 import editProfile from "./Home/EditProfile";
-
 import JobPost from "./JobPost/JobPostArena";
-
 import PostingJobRedirect from "./JobPost/PostJobPage";
-
 import OthersProfile from "./Home/Profile-Others";
-
 import UserJobPost from "./JobPost/UserJobPost";
-
+import forgetPass from "./Registration/ForgetPassEmail";
+import PassRecovery from "./Registration/PassRecovery";
 
 function App() {
   return (
 
-    
     <Router>
       <div>
         
@@ -47,6 +42,9 @@ function App() {
           <Route path="/othersPerson" component={OthersProfile}></Route>
 
           <Route path="/my-job-posts" component={UserJobPost}></Route>
+
+          <Route path="/forgetPass" component={forgetPass}></Route>
+          <Route path="/Password_Recovery" component={PassRecovery}></Route>
 
           {/* Add more routes here if needed */}
         </Switch>

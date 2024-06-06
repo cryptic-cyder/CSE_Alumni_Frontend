@@ -15,7 +15,7 @@ const PageContainer = styled.div`
 // Wrapper for the carousel with a watermark-like background
 const CarouselBackground = styled.div`
   position: relative;
-  background: url("https://scontent.fcla7-1.fna.fbcdn.net/v/t1.6435-9/104454519_10219723158862764_7696918596493290421_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHPQvhqcCkfuSp3ZJWFenWYAY7VnOHsp8kBjtWc4eynyaUiVN4F44NIt0XKNw01_TWGYwvogWfnPI3wPdTGSQmZ&_nc_ohc=VTdFBftx3g4Q7kNvgEyEkQD&_nc_ht=scontent.fcla7-1.fna&oh=00_AYAoDd_RoD-QrLC7_y-Gw0yABSL4ptonz2Ci4KTmPuExhw&oe=6686E024")
+  background: url("https://scontent.fcla7-1.fna.fbcdn.net/v/t1.6435-9/106379560_1553619668144678_4023793802611050592_n.jpg?stp=dst-jpg_s960x960&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeH0BPVLNWB4GK6HjaNdyEsnS62494iCCvdLrbj3iIIK9wQ1ONdprAMs90KCQbtol_QNB-ztbtedvMu175vuIni5&_nc_ohc=NotIzxZxWlIQ7kNvgHuddS-&_nc_ht=scontent.fcla7-1.fna&oh=00_AYByZVwTj4KwLV1TiYazJ7PJQZZrm9KvV7YlUlsUOYMTrA&oe=6687F6F9")
     center center no-repeat;
   background-size: cover;
   height:310px;

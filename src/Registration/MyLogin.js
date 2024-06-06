@@ -105,6 +105,16 @@ function LoginForm() {
               LOGIN
             </button>
           </div>
+
+          <div className="additional-links">
+            <p>
+              <i className="bi bi-people-fill"></i> Forget Password?{' '}
+              <a href="/forgetPass" className="contact-info">
+                Click here
+              </a>
+            </p>
+          </div>
+
           <div className="additional-links">
             <p>
               <i className="bi bi-people-fill"></i> Not registered yet as alumni?{' '}
