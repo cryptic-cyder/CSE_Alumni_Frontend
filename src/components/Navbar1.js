@@ -490,7 +490,7 @@ const Navbar1 = () => {
       const requestBody = { token };
 
       const response = await axios.post(
-        "http://localhost:8181//public/tokenValidation",
+        "http://localhost:8181/public/tokenValidation",
         requestBody
       );
 

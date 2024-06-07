@@ -26,6 +26,7 @@ const JobPost = ({ post }) => {
     }
   };
 
+  
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -148,6 +149,8 @@ const JobPost = ({ post }) => {
 
       if (response.status === 200) {
         alert("Comment added:", response.data);
+        setCommentText("");
+        setResume(null);
         fetchComments();
       } else if (response.status === 401) {
         alert("Your token is expired...Please log in first...");
@@ -158,6 +161,92 @@ const JobPost = ({ post }) => {
     }
   };
 
+  // Post management
+
+  const handleMenuClick = () => setShowMenu(!showMenu);
+
+  const handleUpdatePost = async () => {};
+
+  const handleDeletePost = async () => {
+    const token = localStorage.getItem("tokenUser");
+
+    if (!token) {
+      alert("Token not found...You have not logged in...Please log in first");
+      history.push("/alumni-login");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8181/delete/${post.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Post deleted successfully");
+        window.location.reload();
+      } 
+      else if (response.status === 401) {
+        alert("You have not logged in or not the owner of the post...");
+      }
+    } catch (error) {
+      alert("You have not logged in or not the owner of the post...");
+    }
+  };
+
+  const [showCommentMenu, setShowCommentMenu] = useState({});
+
+  const handleCommentMenuClick = (commentMenuId) => {
+    setShowCommentMenu((prevMenu) => ({
+      ...prevMenu,
+      [commentMenuId]: !prevMenu[commentMenuId],
+    }));
+  };
+
+  const handleUpdateComment = (commentId) => {
+    // Implement the logic to update the comment here
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    const token = localStorage.getItem("tokenUser");
+
+    if (!token) {
+      alert("Token not found...You have not logged in...Please log in first");
+      history.push("/alumni-login");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8181/delete/comment/${commentId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Comment deleted successfully");
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== commentId)
+        );
+      } else if (response.status === 401) {
+        alert("You have not logged in or not the owner of the comment...");
+      }
+    } catch (error) {
+      alert("You have not logged in or not the owner of the comment...");
+    }
+  };
+
+  const [showMenu, setShowMenu] = useState(false);
+
   const dummyPic = "https://via.placeholder.com/150";
 
   const goToUserProfile = (profile) => {
@@ -167,10 +256,24 @@ const JobPost = ({ post }) => {
     });
   };
 
-
   return (
+    <div className="job-post" style={{ position: "relative" }}>
+      <div className="menu-container">
+        <button className="menu-button" onClick={handleMenuClick}>
+          &#x22EE;
+        </button>
+        {showMenu && (
+          <div className="menu">
+            <button className="update" onClick={handleUpdatePost}>
+              Update{" "}
+            </button>
+            <button className="delete" onClick={handleDeletePost}>
+              Delete{" "}
+            </button>
+          </div>
+        )}
+      </div>
 
-    <div className="job-post">
       {postProfile && (
         <div
           className="user-profile"
@@ -217,7 +320,7 @@ const JobPost = ({ post }) => {
         </div>
       )}
 
-      <button className="comments-button"  onClick={handleButtonClick}>
+      <button className="comments-button" onClick={handleButtonClick}>
         {showComments ? "Comment" : "Comment"}
       </button>
 
@@ -258,13 +361,38 @@ const JobPost = ({ post }) => {
               const profile = profiles[comment.commenter];
               return (
                 <div key={index} className="comment-container">
+                  {/* Menu container and button */}
+                  <div className="menu-container">
+                    <button
+                      className="menu-button"
+                      onClick={() => handleCommentMenuClick(index)}
+                    >
+                      &#x22EE;
+                    </button>
+                    {showCommentMenu[index] && (
+                      <div className="menu">
+                        <button
+                          className="update"
+                          onClick={() => handleUpdateComment(comment.id)}
+                        >
+                          Update
+                        </button>
+                        <button
+                          className="delete"
+                          onClick={() => handleDeleteComment(comment.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  {/* Comment content */}
                   <div className="comment">
                     {profile && (
                       <div
                         className="user-profile"
                         onClick={() => goToUserProfile(profile)}
                       >
-                        {/* Styled the profile name */}
                         <div className="profile-info">
                           <p>
                             <span

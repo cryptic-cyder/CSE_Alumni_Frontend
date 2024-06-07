@@ -376,16 +376,17 @@ function Profile() {
   //   }
   // };
 
+ 
   if (!person) {
     return <div>Loading...</div>;
   }
-
+  
   const dummyPic = "https://via.placeholder.com/150";
-
+  
   return (
-    <main className="bg-gray-50 dark:bg-gray-900 min-h-screen py-8">
+    <main className="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
       <Navbar1 />
-      <div className="container mx-auto">
+      <div className="container mx-auto flex-grow">
         {/* <div className="flex justify-center mb-8">
           <div className="grid grid-cols-2 gap-4">
             <button className="btn-primary" onClick={MyJobPosts}>
@@ -450,6 +451,7 @@ function Profile() {
       <Footer />
     </main>
   );
+
 }
 
 export default Profile;

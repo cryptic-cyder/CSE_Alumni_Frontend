@@ -39,7 +39,7 @@ function LoginForm() {
       );
 
       //const { data } = response;
-      console.log(response.data.token);
+      //console.log(response.data.token);
 
       if (response.status === 200) {
         //alert("User Login Successful");
