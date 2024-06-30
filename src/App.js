@@ -17,6 +17,7 @@ import OthersProfile from "./Home/Profile-Others";
 import UserJobPost from "./JobPost/UserJobPost";
 import forgetPass from "./Registration/ForgetPassEmail";
 import PassRecovery from "./Registration/PassRecovery";
+import AboutUsPage from "./Home/About";
 
 function App() {
   return (
@@ -38,15 +39,14 @@ function App() {
           <Route path="/Job-Arena" component={JobPost} />
           
           <Route path="/PostingJob" component={PostingJobRedirect} />
-
           <Route path="/othersPerson" component={OthersProfile}></Route>
 
           <Route path="/my-job-posts" component={UserJobPost}></Route>
 
           <Route path="/forgetPass" component={forgetPass}></Route>
           <Route path="/Password_Recovery" component={PassRecovery}></Route>
-
-          {/* Add more routes here if needed */}
+          <Route path="/About-us" component={AboutUsPage}></Route>
+          
         </Switch>
       </div>
     </Router>
@@ -55,28 +55,3 @@ function App() {
 
 export default App;
 
-/*import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;*/

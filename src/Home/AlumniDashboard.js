@@ -28,7 +28,7 @@ const HomePage = () => {
       <CarouselBackground>
         <CarouselWrapper>
           <Carousel>
-            <Carousel.Item>
+            {/* <Carousel.Item>
               <img
                 className="d-block w-100"
                 src=" https://scontent.fcla7-1.fna.fbcdn.net/v/t39.30808-6/311238028_114734728067860_3205452865634259220_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGZ4yfDMMLtd_GdikFlXMCy9ul7ctb_xOH26Xty1v_E4Rc3RMi98mIppFEg89vkBX3gyhifWZuL0VPfUq3jKmrj&_nc_ohc=fWDdT9b3Y6gQ7kNvgGPdWEO&_nc_ht=scontent.fcla7-1.fna&oh=00_AYCzdtX8EZOACZCsTTywW0gpE_8qJp27jOva2pQ9k2IgyQ&oe=666545E1
@@ -40,12 +40,12 @@ const HomePage = () => {
                 }}
                 alt="Second slide"
               />
-            </Carousel.Item>
+            </Carousel.Item> */}
 
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://scontent.fcla7-1.fna.fbcdn.net/v/t39.30808-6/318560105_131521809722485_6340567641751396541_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEDWJ_m50Nlfjqopq0CcuMCqlZtRnCGn_-qVm1GcIaf_8ceURPFNwdNBI-7oNYro6gXMMdqSNEEOxrowHgslKVS&_nc_ohc=BkEIIs468owQ7kNvgGrINOi&_nc_ht=scontent.fcla7-1.fna&oh=00_AYB18qc2aSl6BR35X3pdOeMHWTp-CHpvkZzv0-eZBNpzFw&oe=666527F1"
+                src="https://scontent.fcla7-1.fna.fbcdn.net/v/t39.30808-6/302096319_496425385825246_7334080398311558194_n.png?stp=dst-png_s960x960&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFw-B3r_iBPgtq7SHmEjcMYH1eJOP9aS4wfV4k4_1pLjMdRjBZIkBncZdMlBWG-zr4FdLbfj6O_KnyjYmnpTAgy&_nc_ohc=M47wKejRFPEQ7kNvgGzc-s9&_nc_ht=scontent.fcla7-1.fna&oh=00_AYAT1rpvxbhinSJrwdh1n0jMkGg_g4M4nxXhDRK8KDqM8w&oe=668720F5"
                 style={{
                   maxHeight: "300px",
                   maxWidth: "100%",
@@ -70,18 +70,7 @@ const HomePage = () => {
             </Carousel.Item>
 
 
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="https://scontent.fcla7-1.fna.fbcdn.net/v/t39.30808-6/302096319_496425385825246_7334080398311558194_n.png?stp=dst-png_s960x960&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFw-B3r_iBPgtq7SHmEjcMYH1eJOP9aS4wfV4k4_1pLjMdRjBZIkBncZdMlBWG-zr4FdLbfj6O_KnyjYmnpTAgy&_nc_ohc=4gGWrKzH13EQ7kNvgFXyOiH&_nc_ht=scontent.fcla7-1.fna&oh=00_AYBvxsCv3Efew_pPV720s7_uOD5NsZHAFTIKvIH-1knmVA&oe=66654A75"
-                style={{
-                  maxHeight: "300px",
-                  maxWidth: "100%",
-                  objectFit: "contain",
-                }}
-                alt="First slide"
-              />
-            </Carousel.Item>
+            
 
             <Carousel.Item>
               <img
@@ -108,24 +97,7 @@ const HomePage = () => {
                 }}
                 alt="Second slide"
               />
-            </Carousel.Item>
-
-            {/* <Carousel.Item>
-              <img
-                className="d-block w-100"
-               src=""
-                style={{
-                  maxHeight: "300px",
-                  maxWidth: "100%",
-                  objectFit: "contain",
-                }}
-                alt="First slide"
-              />
-            </Carousel.Item> */}
-
-         
-           
-           
+            </Carousel.Item>       
           </Carousel>
         </CarouselWrapper>
       </CarouselBackground>

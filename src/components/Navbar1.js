@@ -595,7 +595,7 @@ const Navbar1 = () => {
               <DropdownItem onClick={() => history.push("/User-Profile")}>See Profile</DropdownItem>
               <DropdownItem onClick={MyJobPosts}>My Posts</DropdownItem>
               <DropdownItem onClick={userLogOut}>Logout</DropdownItem>
-              <DropdownItem onClick={() => history.push("/edit-profile")}>Edit Profile</DropdownItem>
+              {/* <DropdownItem onClick={() => history.push("/edit-profile")}>Edit Profile</DropdownItem> */}
               <DropdownItem
                 onClick={() => {
                   const confirmDelete = window.confirm("Are you sure you want to delete your account?");
@@ -621,7 +621,7 @@ const Navbar1 = () => {
           {/* </OutsideAlerter> */}
         </NavLinkItem>
         <NavLinkItem>
-          <NavLink to="/">About</NavLink>
+          <a href="http://localhost:3000/About-us">About</a>
         </NavLinkItem>
       </NavLinks>
     </NavbarContainer>

@@ -33,10 +33,12 @@ const AlumniList = () => {
 
   return (
     <ListContainer>
-      {alumni.map((alumnus) => (
+    {alumni
+      .filter((alumnus) => alumnus.graduationYear) // Filter to include only those with a graduation year
+      .map((alumnus) => (
         <AlumniCard key={alumnus.email} alumni={alumnus} />
       ))}
-    </ListContainer>
+  </ListContainer>
   );
 };
 
