@@ -251,6 +251,27 @@
   // };
 
 
+  //  const OutsideAlerter = ({ children, onClickOutside }) => {
+//     const wrapperRef = useRef(null);
+  
+//     useEffect(() => {
+//       function handleClickOutside(event) {
+//         if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+//           onClickOutside();
+//         }
+//       }
+  
+//       document.addEventListener("mousedown", handleClickOutside);
+//       return () => {
+//         document.removeEventListener("mousedown", handleClickOutside);
+//       };
+//     }, [onClickOutside]);
+  
+//     return <div ref={wrapperRef}>{children}</div>;
+//   };
+
+
+
 import {useEffect, useRef } from "react"; 
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -281,12 +302,37 @@ const Logo = styled.div`
   }
 `;
 
+
+
+
 const LogoText = styled.span`
   margin-left: 20rem; /* Adjust spacing between logo and text */
   font-weight: bold; /* Make text bold */
-  color: white; /* Set text color to white */
-  font-size: 2.2rem; /* Increase font size */
-`;
+  
+  color: #ffd700; /* Neon blue color */
+  font-size: 2.5rem; /* Increase font size */
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.7), 0 0 20px rgba(0, 229, 255, 0.7);
+  
+
+  @keyframes pulsate {
+    0% {
+      text-shadow: 0 0 5px rgba(0, 229, 255, 0.5), 0 0 10px rgba(0, 229, 255, 0.5);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(0, 229, 255, 1), 0 0 30px rgba(0, 229, 255, 1);
+    }
+    100% {
+      text-shadow: 0 0 5px rgba(0, 229, 255, 0.5), 0 0 10px rgba(0, 229, 255, 0.5);
+    }
+  }
+`
+;
+
+
+
+
+
+
 
 const NavLinks = styled.ul`
   list-style-type: none;
@@ -510,6 +556,7 @@ const Navbar1 = () => {
     }
   }
 
+
   const adminLogOut = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -545,25 +592,6 @@ const Navbar1 = () => {
   };
 
 
-//  const OutsideAlerter = ({ children, onClickOutside }) => {
-//     const wrapperRef = useRef(null);
-  
-//     useEffect(() => {
-//       function handleClickOutside(event) {
-//         if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-//           onClickOutside();
-//         }
-//       }
-  
-//       document.addEventListener("mousedown", handleClickOutside);
-//       return () => {
-//         document.removeEventListener("mousedown", handleClickOutside);
-//       };
-//     }, [onClickOutside]);
-  
-//     return <div ref={wrapperRef}>{children}</div>;
-//   };
-
  
 
   return (
@@ -573,7 +601,7 @@ const Navbar1 = () => {
       <Logo>
         <img src="https://www.cuet.ac.bd/frontend/images/cuetlogo.png" alt="Logo" />
       </Logo>
-      <LogoText>CUET CSE</LogoText>
+      <LogoText>CSE Nexus</LogoText>
       <NavLinks>
         <NavLinkItem>
           <NavLink to="/">Home</NavLink>
@@ -586,10 +614,16 @@ const Navbar1 = () => {
             JobSection
           </NavLink>
         </NavLinkItem>
+
+        <NavLinkItem> 
+          <NavLink to="/Discussion"> Discussion </NavLink>
+        </NavLinkItem>
+       
         <NavLinkItem>
           <NavLink as="div" onClick={HandleProfileClick}>
             Profile
           </NavLink>
+
           {/* <OutsideAlerter onClickOutside={closeDropdowns} dropdownRef={dropdownRef}> */}
             <DropdownMenu show={showDropdown} profile={true} >
               <DropdownItem onClick={() => history.push("/User-Profile")}>See Profile</DropdownItem>

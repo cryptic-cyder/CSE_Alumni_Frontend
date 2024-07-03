@@ -69,8 +69,7 @@ function LoginForm() {
         history.push("/alumni-login");
       }
 
-      // const requestBody = { token };
-
+    
       const formDataObj = new FormData();
       for (const key in formData) {
         if (formData[key] !== "") {

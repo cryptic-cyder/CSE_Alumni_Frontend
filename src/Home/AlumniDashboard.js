@@ -28,19 +28,6 @@ const HomePage = () => {
       <CarouselBackground>
         <CarouselWrapper>
           <Carousel>
-            {/* <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src=" https://scontent.fcla7-1.fna.fbcdn.net/v/t39.30808-6/311238028_114734728067860_3205452865634259220_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGZ4yfDMMLtd_GdikFlXMCy9ul7ctb_xOH26Xty1v_E4Rc3RMi98mIppFEg89vkBX3gyhifWZuL0VPfUq3jKmrj&_nc_ohc=fWDdT9b3Y6gQ7kNvgGPdWEO&_nc_ht=scontent.fcla7-1.fna&oh=00_AYCzdtX8EZOACZCsTTywW0gpE_8qJp27jOva2pQ9k2IgyQ&oe=666545E1
-                "
-                style={{
-                  maxHeight: "300px",
-                  maxWidth: "100%",
-                  objectFit: "contain",
-                }}
-                alt="Second slide"
-              />
-            </Carousel.Item> */}
 
             <Carousel.Item>
               <img
@@ -55,7 +42,6 @@ const HomePage = () => {
               />
             </Carousel.Item>
 
-
             <Carousel.Item>
               <img
                 className="d-block w-100"
@@ -69,13 +55,10 @@ const HomePage = () => {
               />
             </Carousel.Item>
 
-
-            
-
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://th.bing.com/th/id/OIP.kTO0mACgrCDjBom5QuVjEwHaEK?rs=1&pid=ImgDetMain"
+                src="https://scontent.fcla7-1.fna.fbcdn.net/v/t39.30808-6/316682462_5578628252254864_830379093318843897_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGYOxJehPlnFa6gV-9QKrN-4DfXr4owPDTgN9evijA8NBrmKBGhtXLMhNoDAysKBBjWhvYNTlTiYwDpb0R56TSd&_nc_ohc=xOJFZX7rKvEQ7kNvgEBjpzG&_nc_ht=scontent.fcla7-1.fna&oh=00_AYBRvFG3e0b-loppTxfA3-MC7P2f_uQO7mT7-PYbAEuDVg&oe=668A350F"
                 style={{
                   maxHeight: "300px",
                   maxWidth: "100%",
@@ -89,7 +72,7 @@ const HomePage = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://engineersconsortiumltd.com.bd/ecl/uploads/project/136351754_3777762142259392_5998423718529669784_o.jpg"
+                src="https://th.bing.com/th/id/OIP.kTO0mACgrCDjBom5QuVjEwHaEK?rs=1&pid=ImgDetMain"
                 style={{
                   maxHeight: "300px",
                   maxWidth: "100%",

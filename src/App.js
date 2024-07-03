@@ -18,6 +18,8 @@ import UserJobPost from "./JobPost/UserJobPost";
 import forgetPass from "./Registration/ForgetPassEmail";
 import PassRecovery from "./Registration/PassRecovery";
 import AboutUsPage from "./Home/About";
+import Discussion from "./Home/Discussion";
+import Members from "./Registration/All-Members";
 
 function App() {
   return (
@@ -46,7 +48,10 @@ function App() {
           <Route path="/forgetPass" component={forgetPass}></Route>
           <Route path="/Password_Recovery" component={PassRecovery}></Route>
           <Route path="/About-us" component={AboutUsPage}></Route>
-          
+
+          <Route path="/Discussion" component={Discussion}></Route>
+          <Route path="/AllMembers" component={Members}></Route>
+
         </Switch>
       </div>
     </Router>

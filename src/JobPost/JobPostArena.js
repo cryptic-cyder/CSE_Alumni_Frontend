@@ -36,13 +36,33 @@ const UserAuth = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post("http://localhost:8181/search", {
-        searchContent: searchQuery,
-      });
+      const token = localStorage.getItem("tokenUser");
+  
+      if (!token) {
+        alert("Token not found...You have not logged in...Please log in first");
+        history.push("/alumni-login");
+        return;
+      }
+  
+      const response = await axios.post(
+        "http://localhost:8181/search",
+        { searchContent: searchQuery },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
+      if(response.status===401){
+        alert("Token is invalid. Please log in again.");
+        history.push("/alumni-login");
+      }
+  
       setFilteredPosts(response.data);
       setIsSearching(true);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error searching posts:", error);
     }
   };
