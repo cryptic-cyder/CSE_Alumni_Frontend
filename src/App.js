@@ -20,6 +20,7 @@ import PassRecovery from "./Registration/PassRecovery";
 import AboutUsPage from "./Home/About";
 import Discussion from "./Home/Discussion";
 import Members from "./Registration/All-Members";
+import EditJobPost from "./JobPost/EditJobPost";
 
 function App() {
   return (
@@ -51,6 +52,8 @@ function App() {
 
           <Route path="/Discussion" component={Discussion}></Route>
           <Route path="/AllMembers" component={Members}></Route>
+
+          <Route path="/EditJobPost" component={EditJobPost}></Route>
 
         </Switch>
       </div>

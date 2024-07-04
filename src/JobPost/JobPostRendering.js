@@ -165,7 +165,42 @@ const JobPost = ({ post }) => {
 
   const handleMenuClick = () => setShowMenu(!showMenu);
 
-  const handleUpdatePost = async () => {};
+  const handleUpdatePost = async () => {
+
+    const token = localStorage.getItem("tokenUser");
+
+    if (!token) {
+      alert("Token not found...You have not logged in...Please log in first");
+      history.push("/alumni-login");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8181/verification/${post.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        history.push({
+          pathname: "/EditJobPost",
+          state: { postId: post.id }
+        });
+      } 
+      else if (response.status === 401) {
+        alert("You have not logged in or not the owner of the post...");
+        history.push("/Job-Arena");
+      }
+    } catch (error) {
+      alert("You have not logged in or not the owner of the post...");
+    }
+  };
+
 
   const handleDeletePost = async () => {
     const token = localStorage.getItem("tokenUser");
@@ -305,7 +340,13 @@ const JobPost = ({ post }) => {
       <h2>
         <b>{post.title}</b>
       </h2>
-      <p>{post.description}</p>
+      <p><b>Company : </b>{post.company}</p>
+      <p><b>Vacancy : </b>{post.vacancy}</p>
+      <p><b>Location : </b>{post.location}</p>
+      <p><b>Requirements : </b>{post.requirements}</p>
+      <p><b>Responsibilities : </b>{post.responsibilities}</p>
+      <p><b>Compensation : </b>{post.salary}</p>
+      
 
       {post.images && post.images.length > 0 && (
         <div className="images" style={{ display: "flex", flexWrap: "wrap" }}>

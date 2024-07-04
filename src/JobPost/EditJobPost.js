@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios"; // You'll need to install axios (npm install axios)
 import "./PostJobPage.css";
-import { useHistory } from "react-router-dom";
+import { useLocation, useHistory } from 'react-router-dom';
 
 const JobPostingForm = () => {
+
+  const location = useLocation();
   const history = useHistory();
+  const { postId } = location.state || {};
 
   const [formData, setFormData] = useState({
     title: "",
@@ -52,33 +55,22 @@ const JobPostingForm = () => {
     });
 
     try {
-      const token = localStorage.getItem("tokenUser");
-
-      if (!token) {
-        alert("Token not found...You have not logged in...Please log in first");
-        history.push("/alumni-login");
-        return;
-      }
-
+    
       const response = await axios.post(
-        "http://localhost:8181/forPostingJob",
+        `http://localhost:8181/updateJob/${postId}`,
         formDataObj,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
       );
 
       if (response.status === 200) {
-        alert("Job posted successfully");
+        alert("Post updated successfully");
         history.push("/Job-Arena");
       }
-      else if (response.status === 401) {
-        alert("Token is not valid...Please log in again...");
-        history.push("/alumni-login");
-      }
+    
     } catch (error) {
       console.error("Error posting job:", error);
       alert("Error posting job");
@@ -87,7 +79,7 @@ const JobPostingForm = () => {
 
   return (
     <div className="job-form-container">
-      <h2 className="form-title">Job Details</h2>
+      <h2 className="form-title">Edit Post</h2>
       <form onSubmit={handleSubmit} className="job-form">
         <div className="form-group">
           <label htmlFor="title">Title:</label>
@@ -97,7 +89,7 @@ const JobPostingForm = () => {
             name="title"
             value={formData.title}
             onChange={handleInputChange}
-            required
+            
           />
         </div>
 
@@ -131,7 +123,7 @@ const JobPostingForm = () => {
             name="location"
             value={formData.location}
             onChange={handleInputChange}
-            required
+            
           />
         </div>
 
@@ -142,7 +134,7 @@ const JobPostingForm = () => {
             name="requirements"
             value={formData.requirements}
             onChange={handleInputChange}
-            required
+            
           />
         </div>
 
@@ -153,7 +145,7 @@ const JobPostingForm = () => {
             name="responsibilities"
             value={formData.responsibilities}
             onChange={handleInputChange}
-            required
+            
           />
         </div>
 
@@ -164,13 +156,9 @@ const JobPostingForm = () => {
             name="salary"
             value={formData.salary}
             onChange={handleInputChange}
-            required
+            
           />
         </div>
-
-
-
-
 
 
         <div className="form-group">
@@ -184,7 +172,7 @@ const JobPostingForm = () => {
           />
         </div>
         <button type="submit" className="submit-button">
-          Submit
+          Update
         </button>
       </form>
     </div>
